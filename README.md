@@ -1,2 +1,4 @@
 # TropicalFish
-Proof of concept
+Proof of concept  
+
+Nécessite [Deno](https://deno.land/)
