@@ -20,6 +20,9 @@ const TEMPLATE: MainFile = {
     },
     "criteria": {
         // FILL
+    },
+    "rewards": {
+        "function": `${getDatapackName()}:global_reward`
     }
 }
 

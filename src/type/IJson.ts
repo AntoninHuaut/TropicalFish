@@ -2,6 +2,11 @@ export interface MainFile {
     author: string;
     display: Display;
     criteria: Criteria;
+    rewards?: Rewards;
+}
+
+export interface Rewards {
+    function: string;
 }
 
 export interface ParentFile extends MainFile {
