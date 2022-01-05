@@ -10,7 +10,7 @@ const TEMPLATE: MainFile = {
         "title": "Les petits %TYPE% dans l'eau ...",
         "description": "Récupérer toutes les sortes de %TYPE%",
         "background": "minecraft:textures/block/tube_coral_block.png",
-        "frame": "goal",
+        "frame": "challenge",
         "show_toast": true,
         "announce_to_chat": true,
         "hidden": false
