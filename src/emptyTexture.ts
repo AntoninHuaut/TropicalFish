@@ -63,9 +63,9 @@ async function createEmptyFiles() {
 }
 
 function calculModelData(typeIndex: number, bodyColorIndex: number, patternColorIndex: number): number {
-    const typeIndexStr = (typeIndex < 10 ? '0' : '') + typeIndex
-    const bodyColorIndexStr = (bodyColorIndex < 10 ? '0' : '') + bodyColorIndex
-    const patternColorIndexStr = (patternColorIndex < 10 ? '0' : '') + patternColorIndex
+    const typeIndexStr = (typeIndex < 10 ? '0' : '') + (typeIndex + 1)
+    const bodyColorIndexStr = (bodyColorIndex < 10 ? '0' : '') + (bodyColorIndex + 1)
+    const patternColorIndexStr = (patternColorIndex < 10 ? '0' : '') + (patternColorIndex + 1)
 
     return Number.parseInt(`1${typeIndexStr}${bodyColorIndexStr}${patternColorIndexStr}`)
 }
