@@ -1,4 +1,4 @@
-import {getDatapackName, getPathBodyColor} from "../pack.ts"
+import {colors, getDatapackName, getPathBodyColor} from "../pack.ts"
 import {Criteria, ParentRewardsFile, Variant} from "./IJson.ts"
 
 const TEMPLATE: ParentRewardsFile = {
@@ -14,7 +14,7 @@ const TEMPLATE: ParentRewardsFile = {
         "announce_to_chat": false,
         "hidden": false
     },
-    "parent": "au_tropique:%TYPE%/body_%BODY_COLOR%",
+    "parent": "au_tropique:%TYPE%",
     "criteria": {
         // FILL
     },
@@ -39,10 +39,17 @@ export default async function generatePatternFiles(type: string, colorBody: stri
     content.display.icon.item = convertString(content.display.icon.item, type, colorBody, colorPattern)
     content.display.title = convertString(content.display.title, type, colorBody, colorPattern)
     content.display.description = convertString(content.display.description, type, colorBody, colorPattern)
-    content.parent = convertString(content.parent, type, colorBody, colorPattern)
     content.rewards.function = convertString(content.rewards.function, type, colorBody, colorPattern)
     content.criteria = criteriaItem
 
+    const colorPatternIndex = colors.indexOf(colorPattern)
+    if (colorPatternIndex == 0) {
+        content.parent = convertString(`${content.parent}/body_${colorBody}`, type, colorBody, colorPattern)
+    } else {
+        const previousColor = colors[colorPatternIndex - 1]
+        content.parent = convertString(`${content.parent}/${colorBody}/pattern_${previousColor}`, type, colorBody, colorPattern)
+    }
+
     const path = `${getPathBodyColor(type, colorBody)}/pattern_${colorPattern}.json`
-    await Deno.writeTextFile(path, JSON.stringify(content, null, 2)) // TODO remove null 2
+    await Deno.writeTextFile(path, JSON.stringify(content))
 }

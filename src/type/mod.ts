@@ -1,7 +1,7 @@
-import { getDatapackName, types, colors, getPathType, colorsMapping } from "../pack.ts"
-import { getVariantsWithTypeColor } from "../variant.ts"
+import {getDatapackName, types, colors, getPathType, colorsMapping} from "../pack.ts"
+import {getVariantsWithTypeColor} from "../variant.ts"
 import generateMainFile from "./mainFile.ts"
-import { ParentFile, Variant } from "./IJson.ts"
+import {ParentFile, Variant} from "./IJson.ts"
 import generatePatternFiles from "./patternFile.ts"
 import generateActiveFile from "./activeFile.ts"
 import generateGlobalFile from "./globalFile.ts";
@@ -26,7 +26,7 @@ const TEMPLATE: ParentFile = {
 }
 const LINE: Variant = {
     "trigger": "minecraft:inventory_changed",
-    "conditions": { "items": [{ "items": ["minecraft:tropical_fish_bucket"], "nbt": "{BucketVariantTag:%VARIANT%}" }] }
+    "conditions": {"items": [{"items": ["minecraft:tropical_fish_bucket"], "nbt": "{BucketVariantTag:%VARIANT%}"}]}
 }
 
 const BODY_FILENAME = "body_"
@@ -69,11 +69,11 @@ export default async function generatesFiles() {
                 }))
 
                 patternColorIndex++
-                typeVariants.push({ key: contentKey, value: contentLine })
+                typeVariants.push({key: contentKey, value: contentLine})
             }
 
             promises.push(generateActiveFile(type, bodyColor))
-            promises.push(Deno.writeTextFile(path, JSON.stringify(content, null, 2))) // TODO remove null, 2
+            promises.push(Deno.writeTextFile(path, JSON.stringify(content, null, 2)))
         }
 
         allTypeVariants[type] = typeVariants

@@ -35,5 +35,5 @@ export default async function generateMainFile(type: string, typesVariants: { ke
         content.criteria[variant.key] = variant.value
     }
 
-    await Deno.writeTextFile(path, JSON.stringify(content, null, 2)) // TODO remove null 2
+    await Deno.writeTextFile(path, JSON.stringify(content, null, 2))
 }
