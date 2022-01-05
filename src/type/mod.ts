@@ -1,9 +1,10 @@
-import {getDatapackName, types, colors, getPathType, colorsMapping} from "../pack.ts"
-import {getVariantsWithTypeColor} from "../variant.ts"
+import { getDatapackName, types, colors, getPathType, colorsMapping } from "../pack.ts"
+import { getVariantsWithTypeColor } from "../variant.ts"
 import generateMainFile from "./mainFile.ts"
-import {ParentFile, Variant} from "./IJson.ts"
+import { ParentFile, Variant } from "./IJson.ts"
 import generatePatternFiles from "./patternFile.ts"
 import generateActiveFile from "./activeFile.ts"
+import generateGlobalFile from "./globalFile.ts";
 
 const TEMPLATE: ParentFile = {
     "author": "EclairDeFeu360 & Maner",
@@ -25,7 +26,7 @@ const TEMPLATE: ParentFile = {
 }
 const LINE: Variant = {
     "trigger": "minecraft:inventory_changed",
-    "conditions": {"items": [{"items": ["minecraft:tropical_fish_bucket"], "nbt": "{BucketVariantTag:%VARIANT%}"}]}
+    "conditions": { "items": [{ "items": ["minecraft:tropical_fish_bucket"], "nbt": "{BucketVariantTag:%VARIANT%}" }] }
 }
 
 const BODY_FILENAME = "body_"
@@ -37,6 +38,7 @@ function convertString(str: string, type: string, color: string) {
 export default async function generatesFiles() {
     const promises: Promise<void>[] = []
     const colorsMappingFlip = Object.fromEntries(Object.entries(colorsMapping).map(([k, v]) => [v, k]))
+    const allTypeVariants: { [type: string]: { key: string, value: Variant }[] } = {}
 
     for (const type of types) {
         const typeVariants: { key: string, value: Variant }[] = []
@@ -67,15 +69,17 @@ export default async function generatesFiles() {
                 }))
 
                 patternColorIndex++
-                typeVariants.push({key: contentKey, value: contentLine})
+                typeVariants.push({ key: contentKey, value: contentLine })
             }
 
             promises.push(generateActiveFile(type, bodyColor))
             promises.push(Deno.writeTextFile(path, JSON.stringify(content, null, 2))) // TODO remove null, 2
         }
 
+        allTypeVariants[type] = typeVariants
         promises.push(generateMainFile(type, typeVariants))
     }
 
+    promises.push(generateGlobalFile(allTypeVariants))
     await Promise.all(promises)
 }

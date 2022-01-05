@@ -7,7 +7,7 @@ const TEMPLATE: ParentRewardsFile = {
         "icon": {
             "item": "minecraft:%PATTERN_COLOR%_wool"
         },
-        "title": "Tout %COLOR%",
+        "title": "%BODY_COLOR% %PATTERN_COLOR%",
         "description": "Récupérer un %TYPE% %BODY_COLOR%, rayais %PATTERN_COLOR%",
         "frame": "task",
         "show_toast": true,

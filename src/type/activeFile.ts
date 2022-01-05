@@ -1,7 +1,7 @@
 import {getDatapackName, getPathBodyColor} from "../pack.ts"
-import {ActiveRoot} from "./IJson.ts"
+import {ActiveFile} from "./IJson.ts"
 
-const TEMPLATE: ActiveRoot = {
+const TEMPLATE: ActiveFile = {
     "author": "EclairDeFeu360 & Maner",
     "parent": "au_tropique:%TYPE%/%BODY_COLOR%/pattern_%PATTERN_COLOR%",
     "criteria": {
@@ -19,7 +19,7 @@ function convertString(str: string, type: string, colorBody: string, colorPatter
 
 export default async function generateActiveFile(type: string, colorBody: string) {
     const colorPattern = "yellow"
-    const content: ActiveRoot = JSON.parse(JSON.stringify(TEMPLATE))
+    const content: ActiveFile = JSON.parse(JSON.stringify(TEMPLATE))
 
     content.parent = convertString(content.parent, type, colorBody, colorPattern)
 

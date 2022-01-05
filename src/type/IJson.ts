@@ -9,7 +9,6 @@ export interface ParentFile extends MainFile {
 }
 
 export interface ParentRewardsFile extends ParentFile {
-    parent: string;
     rewards: Rewards;
 }
 
@@ -52,7 +51,7 @@ export interface ItemsEntity {
 
 //
 
-export interface ActiveRoot {
+export interface ActiveFile {
     author: string;
     parent: string;
     criteria: ActiveCriteria;

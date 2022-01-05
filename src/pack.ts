@@ -47,8 +47,12 @@ export function getFunctionPath() {
     return `${PATH_PACK}/data/minecraft/tags/functions`
 }
 
+export function getAdvancementsPath() {
+    return `${PATH_PACK}/data/${getDatapackName()}/advancements`
+}
+
 export function getPathType(type: string) {
-    return `${PATH_PACK}/data/${getDatapackName()}/advancements/${type}`
+    return `${getAdvancementsPath()}/${type}`
 }
 
 export function getPathBodyColor(type: string, color: string) {
