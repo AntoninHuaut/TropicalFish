@@ -1,16 +1,17 @@
-import {getDatapackName, types, colors, getPathType, colorsMapping} from "../pack.ts"
-import {getVariantsWithTypeColor} from "../variant.ts"
+import {getDatapackName, types, colors, getPathType, colorsMapping, writeFile} from "../pack.ts"
+import {calculModelData, getVariantsWithTypeColor} from "../variant.ts"
 import generateMainFile from "./mainFile.ts"
 import {ParentFile, Variant} from "./IJson.ts"
 import generatePatternFiles from "./patternFile.ts"
 import generateActiveFile from "./activeFile.ts"
-import generateGlobalFile from "./globalFile.ts";
+import generateGlobalFile from "./globalFile.ts"
 
 const TEMPLATE: ParentFile = {
     "author": "EclairDeFeu360 & Maner",
     "display": {
         "icon": {
-            "item": "minecraft:%COLOR%_concrete"
+            "item": "minecraft:tropical_fish_bucket",
+            "nbt": "{CustomModelData: %MODELDATA%}"
         },
         "title": "Les petits %TYPE% %COLOR% ...",
         "description": "Récupérer tous les %TYPE% %COLOR%",
@@ -40,14 +41,15 @@ export default async function generatesFiles() {
     const colorsMappingFlip = Object.fromEntries(Object.entries(colorsMapping).map(([k, v]) => [v, k]))
     const allTypeVariants: { [type: string]: { key: string, value: Variant }[] } = {}
 
-    for (const type of types) {
+    types.forEach((type, typeIndex) => {
         const typeVariants: { key: string, value: Variant }[] = []
 
-        for (const bodyColor of colors) {
+        colors.forEach((bodyColor, bodyColorIndex) => {
             const path = `${getPathType(type)}/${BODY_FILENAME}${bodyColor}.json`
+            const modelData: string = "" + calculModelData(typeIndex, bodyColorIndex, 0)
             const content: ParentFile = JSON.parse(JSON.stringify(TEMPLATE))
 
-            content.display.icon.item = convertString(content.display.icon.item, type, bodyColor)
+            content.display.icon.nbt = content.display.icon.nbt.replace(/%MODELDATA%/g, modelData)
             content.display.title = convertString(content.display.title, type, bodyColor)
             content.display.description = convertString(content.display.description, type, bodyColor)
             content.parent = convertString(content.parent, type, bodyColor)
@@ -73,12 +75,12 @@ export default async function generatesFiles() {
             }
 
             promises.push(generateActiveFile(type, bodyColor))
-            promises.push(Deno.writeTextFile(path, JSON.stringify(content, null, 2)))
-        }
+            promises.push(writeFile(path, content))
+        })
 
         allTypeVariants[type] = typeVariants
         promises.push(generateMainFile(type, typeVariants))
-    }
+    })
 
     promises.push(generateGlobalFile(allTypeVariants))
     await Promise.all(promises)

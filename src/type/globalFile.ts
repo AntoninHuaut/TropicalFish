@@ -1,11 +1,14 @@
-import {MainFile, Variant, ParentFile} from "./IJson.ts";
-import {getAdvancementsPath, getDatapackName} from "../pack.ts";
+import {MainFile, Variant, ParentFile} from "./IJson.ts"
+import {getAdvancementsPath, getDatapackName, types, writeFile} from "../pack.ts"
+import {calculModelData} from "../variant.ts"
+import {type} from "https://deno.land/std@0.105.0/_wasm_crypto/crypto.wasm.js"
 
 const TEMPLATE: MainFile = {
     "author": "EclairDeFeu360 & Maner",
     "display": {
         "icon": {
-            "item": "minecraft:tropical_fish_bucket"
+            "item": "minecraft:tropical_fish_bucket",
+            "nbt": "{}"
         },
         "title": "Les petits poissons dans l'eau ...",
         "description": "Récupérer tous les poissons",
@@ -25,7 +28,8 @@ const TYPE_TEMPLATE: ParentFile = {
     "author": "EclairDeFeu360 & Maner",
     "display": {
         "icon": {
-            "item": "minecraft:tropical_fish_bucket"
+            "item": "minecraft:tropical_fish_bucket",
+            "nbt": "{CustomModelData: %MODELDATA%}"
         },
         "title": "Les petits %TYPE% dans l'eau ...",
         "description": "Récupérer toutes les sortes de %TYPE%",
@@ -55,7 +59,9 @@ export default async function generateGlobalFile(allTypesVariants: { [type: stri
     for (const type of Object.keys(allTypesVariants)) {
         const typePath = `${getAdvancementsPath()}/global_${type}.json`
         const typeContent: ParentFile = JSON.parse(JSON.stringify(TYPE_TEMPLATE))
+        const modelData: string = "" + calculModelData(types.indexOf(type), 0, 7)
 
+        typeContent.display.icon.nbt = typeContent.display.icon.nbt.replace(/%MODELDATA%/g, modelData)
         typeContent.display.title = convertString(typeContent.display.title, type)
         typeContent.display.description = convertString(typeContent.display.description, type)
         typeContent.parent = `${getDatapackName()}:${lastParent}`
@@ -65,15 +71,15 @@ export default async function generateGlobalFile(allTypesVariants: { [type: stri
             typeContent.criteria[variant.key] = variant.value
         }
 
-        promises.push(Deno.writeTextFile(typePath, JSON.stringify(typeContent, null, 2)))
+        promises.push(writeFile(typePath, typeContent))
 
         lastParent = `global_${type}`
     }
 
-    promises.push(Deno.writeTextFile(`${getAdvancementsPath()}/global_tick.json`, JSON.stringify({
+    promises.push(writeFile(`${getAdvancementsPath()}/global_tick.json`, {
         "criteria": {"active": {"trigger": "minecraft:tick"}},
         "parent": `${getDatapackName()}:${lastParent}`
-    }, null, 2)))
-    promises.push(Deno.writeTextFile(path, JSON.stringify(content, null, 2)))
+    }))
+    promises.push(writeFile(path, content))
     await Promise.all(promises)
 }

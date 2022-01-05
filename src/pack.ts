@@ -39,6 +39,16 @@ export const colorsMapping: Record<string, number> = {
     "yellow": 4
 }
 
+export async function writeFile(path: string, content: object) {
+    let stringify: string;
+    if (Deno.env.get("JSON_MINIFIED") === "true") {
+        stringify = JSON.stringify(content)
+    } else {
+        stringify = JSON.stringify(content, null, 2)
+    }
+    await Deno.writeTextFile(path, stringify)
+}
+
 export function getDatapackName(): string {
     return Deno.env.get("DATAPACK_NAME") ?? 'au_tropique'
 }
@@ -72,5 +82,5 @@ export async function generateFolders() {
 }
 
 export async function generateLoad() {
-    await Deno.writeTextFile(`${getFunctionPath()}/load.json`, JSON.stringify({"values": [`${getDatapackName()}:load`]}))
+    await writeFile(`${getFunctionPath()}/load.json`, {"values": [`${getDatapackName()}:load`]})
 }

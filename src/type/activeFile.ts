@@ -1,4 +1,4 @@
-import {getPathBodyColor} from "../pack.ts"
+import {getPathBodyColor, writeFile} from "../pack.ts"
 import {ActiveFile} from "./IJson.ts"
 
 const TEMPLATE: ActiveFile = {
@@ -24,5 +24,5 @@ export default async function generateActiveFile(type: string, colorBody: string
     content.parent = convertString(content.parent, type, colorBody, colorPattern)
 
     const path = `${getPathBodyColor(type, colorBody)}/active.json`
-    await Deno.writeTextFile(path, JSON.stringify(content, null, 2))
+    await writeFile(path, content)
 }

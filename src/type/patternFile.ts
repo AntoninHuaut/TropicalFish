@@ -1,11 +1,13 @@
-import {colors, getDatapackName, getPathBodyColor} from "../pack.ts"
+import {colors, getDatapackName, getPathBodyColor, types, writeFile} from "../pack.ts"
 import {Criteria, ParentRewardsFile, Variant} from "./IJson.ts"
+import {calculModelData} from "../variant.ts"
 
 const TEMPLATE: ParentRewardsFile = {
     "author": "EclairDeFeu360 & Maner",
     "display": {
         "icon": {
-            "item": "minecraft:%PATTERN_COLOR%_wool"
+            "item": "minecraft:tropical_fish_bucket",
+            "nbt": "{CustomModelData: %MODELDATA%}"
         },
         "title": "%BODY_COLOR% %PATTERN_COLOR%",
         "description": "Récupérer un %TYPE% %BODY_COLOR%, rayais %PATTERN_COLOR%",
@@ -36,7 +38,8 @@ export default async function generatePatternFiles(type: string, colorBody: stri
 
     const content: ParentRewardsFile = JSON.parse(JSON.stringify(TEMPLATE))
 
-    content.display.icon.item = convertString(content.display.icon.item, type, colorBody, colorPattern)
+    const modelData: string = "" + calculModelData(types.indexOf(type), colors.indexOf(colorBody), colors.indexOf(colorPattern))
+    content.display.icon.nbt = content.display.icon.nbt.replace(/%MODELDATA%/g, modelData)
     content.display.title = convertString(content.display.title, type, colorBody, colorPattern)
     content.display.description = convertString(content.display.description, type, colorBody, colorPattern)
     content.rewards.function = convertString(content.rewards.function, type, colorBody, colorPattern)
@@ -51,5 +54,5 @@ export default async function generatePatternFiles(type: string, colorBody: stri
     }
 
     const path = `${getPathBodyColor(type, colorBody)}/pattern_${colorPattern}.json`
-    await Deno.writeTextFile(path, JSON.stringify(content))
+    await writeFile(path, content)
 }

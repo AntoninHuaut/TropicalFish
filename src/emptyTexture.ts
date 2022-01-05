@@ -1,7 +1,8 @@
 // TMP: Create texture template
 
 import {ensureDir, ensureFile} from "https://deno.land/std/fs/mod.ts"
-import {colors, PATH_PACK, types} from "./pack.ts"
+import {colors, PATH_PACK, types, writeFile} from "./pack.ts"
+import {calculModelData} from "./variant.ts"
 
 export interface LinkItemsFile {
     parent: string;
@@ -50,24 +51,16 @@ async function createEmptyFiles() {
                 const finalPath = `${modelPathTypeColorBody}/${colorPattern}.json`
 
                 promisesFiles.push(ensureFile(`${texturesPathTypeColorBody}/${colorPattern}.png.template`))
-                promisesFiles.push(Deno.writeTextFile(finalPath, JSON.stringify({
+                promisesFiles.push(writeFile(finalPath, {
                     "parent": "item/generated",
                     "textures": {
                         "layer0": `item/${type}/${colorBody}/${colorPattern}`
                     }
-                }, null, 2)))
+                }))
             }
         }
     }
     await Promise.all(promisesFiles)
-}
-
-function calculModelData(typeIndex: number, bodyColorIndex: number, patternColorIndex: number): number {
-    const typeIndexStr = (typeIndex < 10 ? '0' : '') + (typeIndex + 1)
-    const bodyColorIndexStr = (bodyColorIndex < 10 ? '0' : '') + (bodyColorIndex + 1)
-    const patternColorIndexStr = (patternColorIndex < 10 ? '0' : '') + (patternColorIndex + 1)
-
-    return Number.parseInt(`1${typeIndexStr}${bodyColorIndexStr}${patternColorIndexStr}`)
 }
 
 async function createLinkTexturesFile() {
@@ -95,7 +88,7 @@ async function createLinkTexturesFile() {
         })
     })
 
-    await Deno.writeTextFile(`${PATH_PACK}/assets/minecraft/models/item/tropical_fish_bucket.json`, JSON.stringify(content, null, 2))
+    await writeFile(`${PATH_PACK}/assets/minecraft/models/item/tropical_fish_bucket.json`, content)
 }
 
 export default async function initTexture() {

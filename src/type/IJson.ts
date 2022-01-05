@@ -29,6 +29,7 @@ export interface Display {
 
 export interface Icon {
     item: string;
+    nbt: string;
 }
 
 export interface Criteria {
