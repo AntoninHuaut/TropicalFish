@@ -1,6 +1,7 @@
 import {copy} from "https://deno.land/std/fs/copy.ts"
 import generatesFiles from "./type/mod.ts"
 import {generateFolders, generateLoad, PATH_PACK, PATH_TEMPLATE} from "./pack.ts"
+import initTexture from "./emptyTexture.ts"
 
 try {
     await Deno.remove('pack', {recursive: true})
@@ -9,6 +10,7 @@ try {
 
 await copy(PATH_TEMPLATE, PATH_PACK)
 await generateFolders()
+await initTexture() // TODO TEMPORARY
 await generateLoad()
 await generatesFiles()
 
