@@ -1,9 +1,13 @@
 import { typesMapping, colorsMapping } from "./pack.ts"
 
+function padNumber(num: number) {
+    return ("" + num).padStart(2, "0")
+}
+
 export function calculModelData(typeIndex: number, bodyColorIndex: number, patternColorIndex: number): number {
-    const typeIndexStr = (typeIndex < 10 ? '0' : '') + (typeIndex + 1)
-    const bodyColorIndexStr = (bodyColorIndex < 10 ? '0' : '') + (bodyColorIndex + 1)
-    const patternColorIndexStr = (patternColorIndex < 10 ? '0' : '') + (patternColorIndex + 1)
+    const typeIndexStr = padNumber(typeIndex + 1)
+    const bodyColorIndexStr = padNumber(bodyColorIndex + 1)
+    const patternColorIndexStr = padNumber(patternColorIndex + 1)
 
     return Number.parseInt(`1${typeIndexStr}${bodyColorIndexStr}${patternColorIndexStr}`)
 }
