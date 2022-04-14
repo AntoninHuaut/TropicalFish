@@ -1,6 +1,6 @@
-import {getPathType, types, writeFile} from "../pack.ts"
+import {getAdvancementsPathType, types, writeFile} from "../pack.ts"
 import {MainFile, Variant} from "./IJson.ts"
-import {calculModelData} from "../variant.ts"
+import {calculateModelData} from "../variant.ts"
 
 const TEMPLATE: MainFile = {
     "author": "EclairDeFeu360 & Maner",
@@ -27,8 +27,8 @@ function convertString(str: string, type: string) {
 }
 
 export default async function generateMainFile(type: string, typesVariants: { key: string, value: Variant }[]) {
-    const path = `${getPathType(type)}/main.json`
-    const modelData: string = "" + calculModelData(types.indexOf(type), 0, 7)
+    const path = `${getAdvancementsPathType(type)}/main.json`
+    const modelData: string = "" + calculateModelData(types.indexOf(type), 0, 7)
 
     const content: MainFile = JSON.parse(JSON.stringify(TEMPLATE))
     content.display.icon.nbt = content.display.icon.nbt.replace(/%MODELDATA%/g, modelData)

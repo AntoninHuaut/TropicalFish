@@ -4,7 +4,7 @@ function padNumber(num: number) {
     return ("" + num).padStart(2, "0")
 }
 
-export function calculModelData(typeIndex: number, bodyColorIndex: number, patternColorIndex: number): number {
+export function calculateModelData(typeIndex: number, bodyColorIndex: number, patternColorIndex: number): number {
     const typeIndexStr = padNumber(typeIndex + 1)
     const bodyColorIndexStr = padNumber(bodyColorIndex + 1)
     const patternColorIndexStr = padNumber(patternColorIndex + 1)

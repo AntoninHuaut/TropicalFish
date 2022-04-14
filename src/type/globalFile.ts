@@ -1,7 +1,6 @@
 import {MainFile, Variant, ParentFile} from "./IJson.ts"
 import {getAdvancementsPath, getDatapackName, types, writeFile} from "../pack.ts"
-import {calculModelData} from "../variant.ts"
-import {type} from "https://deno.land/std@0.105.0/_wasm_crypto/crypto.wasm.js"
+import {calculateModelData} from "../variant.ts"
 
 const TEMPLATE: MainFile = {
     "author": "EclairDeFeu360 & Maner",
@@ -62,7 +61,7 @@ export default async function generateGlobalFile(allTypesVariants: { [type: stri
     for (const type of Object.keys(allTypesVariants)) {
         const typePath = `${getAdvancementsPath()}/global_${type}.json`
         const typeContent: ParentFile = JSON.parse(JSON.stringify(TYPE_TEMPLATE))
-        const modelData: string = "" + calculModelData(types.indexOf(type), 0, 7)
+        const modelData: string = "" + calculateModelData(types.indexOf(type), 0, 7)
 
         typeContent.display.icon.nbt = typeContent.display.icon.nbt.replace(/%MODELDATA%/g, modelData)
         typeContent.display.title = convertString(typeContent.display.title, type)

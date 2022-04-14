@@ -1,6 +1,6 @@
-import {colors, getDatapackName, getPathBodyColor, types, writeFile} from "../pack.ts"
+import {colors, getDatapackName, getAdvancementsPathBodyColor, types, writeFile} from "../pack.ts"
 import {Criteria, ParentRewardsFile, Variant} from "./IJson.ts"
-import {calculModelData} from "../variant.ts"
+import {calculateModelData} from "../variant.ts"
 
 const TEMPLATE: ParentRewardsFile = {
     "author": "EclairDeFeu360 & Maner",
@@ -16,7 +16,7 @@ const TEMPLATE: ParentRewardsFile = {
         "announce_to_chat": false,
         "hidden": false
     },
-    "parent": "au_tropique:%TYPE%",
+    "parent": `${getDatapackName()}:%TYPE%`,
     "criteria": {
         // FILL
     },
@@ -38,7 +38,7 @@ export default async function generatePatternFiles(type: string, colorBody: stri
 
     const content: ParentRewardsFile = JSON.parse(JSON.stringify(TEMPLATE))
 
-    const modelData: string = "" + calculModelData(types.indexOf(type), colors.indexOf(colorBody), colors.indexOf(colorPattern))
+    const modelData: string = "" + calculateModelData(types.indexOf(type), colors.indexOf(colorBody), colors.indexOf(colorPattern))
     content.display.icon.nbt = content.display.icon.nbt.replace(/%MODELDATA%/g, modelData)
     content.display.title = convertString(content.display.title, type, colorBody, colorPattern)
     content.display.description = convertString(content.display.description, type, colorBody, colorPattern)
@@ -53,6 +53,6 @@ export default async function generatePatternFiles(type: string, colorBody: stri
         content.parent = convertString(`${content.parent}/${colorBody}/pattern_${previousColor}`, type, colorBody, colorPattern)
     }
 
-    const path = `${getPathBodyColor(type, colorBody)}/pattern_${colorPattern}.json`
+    const path = `${getAdvancementsPathBodyColor(type, colorBody)}/pattern_${colorPattern}.json`
     await writeFile(path, content)
 }

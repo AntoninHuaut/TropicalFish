@@ -1,9 +1,9 @@
-import {getPathBodyColor, writeFile} from "../pack.ts"
+import {getAdvancementsPathBodyColor, getDatapackName, writeFile} from "../pack.ts"
 import {ActiveFile} from "./IJson.ts"
 
 const TEMPLATE: ActiveFile = {
     "author": "EclairDeFeu360 & Maner",
-    "parent": "au_tropique:%TYPE%/%BODY_COLOR%/pattern_%PATTERN_COLOR%",
+    "parent": `${getDatapackName()}:%TYPE%/%BODY_COLOR%/pattern_%PATTERN_COLOR%`,
     "criteria": {
         "active": {
             "trigger": "minecraft:impossible"
@@ -23,6 +23,6 @@ export default async function generateActiveFile(type: string, colorBody: string
 
     content.parent = convertString(content.parent, type, colorBody, colorPattern)
 
-    const path = `${getPathBodyColor(type, colorBody)}/active.json`
+    const path = `${getAdvancementsPathBodyColor(type, colorBody)}/active.json`
     await writeFile(path, content)
 }

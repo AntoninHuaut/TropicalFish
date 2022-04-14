@@ -46,41 +46,49 @@ export async function writeFile(path: string, content: object) {
     } else {
         stringify = JSON.stringify(content, null, 2)
     }
-    await Deno.writeTextFile(path, stringify)
+    await writeStringFile(path, stringify)
+}
+
+export async function writeStringFile(path: string, content: string) {
+    await Deno.writeTextFile(path, content)
 }
 
 export function getDatapackName(): string {
     return Deno.env.get("DATAPACK_NAME") ?? 'au_tropique'
 }
 
-export function getFunctionPath() {
+export function getMinecraftFunctionPath() {
     return `${PATH_PACK}/data/minecraft/tags/functions`
+}
+
+export function getDatapackFunctionPath() {
+    return `${PATH_PACK}/data/${getDatapackName()}/functions`
 }
 
 export function getAdvancementsPath() {
     return `${PATH_PACK}/data/${getDatapackName()}/advancements`
 }
 
-export function getPathType(type: string) {
+export function getAdvancementsPathType(type: string) {
     return `${getAdvancementsPath()}/${type}`
 }
 
-export function getPathBodyColor(type: string, color: string) {
-    return `${getPathType(type)}/${color}`
+export function getAdvancementsPathBodyColor(type: string, color: string) {
+    return `${getAdvancementsPathType(type)}/${color}`
 }
 
 export async function generateFolders() {
     const promises: Promise<void>[] = []
     for (const type of types) {
         for (const color of colors) {
-            const path = getPathBodyColor(type, color)
+            const path = getAdvancementsPathBodyColor(type, color)
             promises.push(ensureDir(path))
         }
     }
-    promises.push(ensureDir(getFunctionPath()))
+    promises.push(ensureDir(getMinecraftFunctionPath()))
     await Promise.all(promises)
 }
 
 export async function generateLoad() {
-    await writeFile(`${getFunctionPath()}/load.json`, {"values": [`${getDatapackName()}:load`]})
+    await writeFile(`${getMinecraftFunctionPath()}/load.json`, {"values": [`${getDatapackName()}:load`]})
 }

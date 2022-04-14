@@ -1,8 +1,6 @@
-// TMP: Create texture template
-
 import {ensureDir, ensureFile} from "https://deno.land/std/fs/mod.ts"
 import {colors, PATH_PACK, types, writeFile} from "./pack.ts"
-import {calculModelData} from "./variant.ts"
+import {calculateModelData} from "./variant.ts"
 
 export interface LinkItemsFile {
     parent: string;
@@ -75,7 +73,7 @@ async function createLinkTexturesFile() {
     types.forEach((type, typeIndex) => {
         colors.forEach((bodyColor, bodyColorIndex) => {
             colors.forEach((patternColor, patternColorIndex) => {
-                const modelData: number = calculModelData(typeIndex, bodyColorIndex, patternColorIndex)
+                const modelData: number = calculateModelData(typeIndex, bodyColorIndex, patternColorIndex)
                 const model = `item/${type}/${bodyColor}/${patternColor}`
 
                 content.overrides.push({

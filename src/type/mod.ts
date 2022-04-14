@@ -1,10 +1,11 @@
-import {getDatapackName, types, colors, getPathType, colorsMapping, writeFile} from "../pack.ts"
-import {calculModelData, getVariantsWithTypeColor} from "../variant.ts"
+import {getDatapackName, types, colors, getAdvancementsPathType, colorsMapping, writeFile} from "../pack.ts"
+import {calculateModelData, getVariantsWithTypeColor} from "../variant.ts"
 import generateMainFile from "./mainFile.ts"
 import {ParentFile, Variant} from "./IJson.ts"
 import generatePatternFiles from "./patternFile.ts"
 import generateActiveFile from "./activeFile.ts"
 import generateGlobalFile from "./globalFile.ts"
+import generateFunctionFile from "./functionFile.ts";
 
 const TEMPLATE: ParentFile = {
     "author": "EclairDeFeu360 & Maner",
@@ -45,8 +46,8 @@ export default async function generatesFiles() {
         const typeVariants: { key: string, value: Variant }[] = []
 
         colors.forEach((bodyColor, bodyColorIndex) => {
-            const path = `${getPathType(type)}/${BODY_FILENAME}${bodyColor}.json`
-            const modelData: string = "" + calculModelData(typeIndex, bodyColorIndex, 0)
+            const path = `${getAdvancementsPathType(type)}/${BODY_FILENAME}${bodyColor}.json`
+            const modelData: string = "" + calculateModelData(typeIndex, bodyColorIndex, 0)
             const content: ParentFile = JSON.parse(JSON.stringify(TEMPLATE))
 
             content.display.icon.nbt = content.display.icon.nbt.replace(/%MODELDATA%/g, modelData)
@@ -80,6 +81,7 @@ export default async function generatesFiles() {
 
         allTypeVariants[type] = typeVariants
         promises.push(generateMainFile(type, typeVariants))
+        promises.push(generateFunctionFile(type))
     })
 
     promises.push(generateGlobalFile(allTypeVariants))
