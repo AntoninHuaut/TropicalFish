@@ -1,8 +1,7 @@
 import {ensureDir} from "https://deno.land/std/fs/mod.ts"
 import "https://deno.land/x/dotenv/load.ts"
 
-export const PATH_PACK = "pack/"
-export const PATH_TEMPLATE = "template/"
+export const PATH_PACK = "pack"
 
 export const types: string[] = ["betty", "blockfish", "brinely", "clayfish", "dasher", "flopper", "glitter", "kob", "snooper", "spotty", "stripey", "sunstreak"]
 export const typesMapping: Record<string, [number, number]> = { // first least byte / second-least byte : https://minecraft.fandom.com/wiki/Tropical_Fish (Entity data)
@@ -85,7 +84,7 @@ export async function generateFolders() {
             promises.push(ensureDir(path))
         }
     }
-    promises.push(ensureDir(getMinecraftFunctionPath()))
+    promises.push(ensureDir(getMinecraftFunctionPath()), ensureDir(getDatapackFunctionPath()))
     await Promise.all(promises)
 }
 

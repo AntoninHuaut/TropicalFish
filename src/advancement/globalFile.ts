@@ -1,6 +1,7 @@
 import {MainFile, Variant, ParentFile} from "./IJson.ts"
 import {getAdvancementsPath, getDatapackName, types, writeFile} from "../pack.ts"
 import {calculateModelData} from "../variant.ts"
+import {getGlobalRewardFileName} from "../function/globalRewardFile.ts";
 
 const TEMPLATE: MainFile = {
     "author": "EclairDeFeu360 & Maner",
@@ -21,7 +22,7 @@ const TEMPLATE: MainFile = {
         // FILL
     },
     "rewards": {
-        "function": `${getDatapackName()}:global_reward`
+        "function": `${getDatapackName()}:${getGlobalRewardFileName()}`
     }
 }
 

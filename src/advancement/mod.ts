@@ -1,11 +1,10 @@
-import {getDatapackName, types, colors, getAdvancementsPathType, colorsMapping, writeFile} from "../pack.ts"
+import {colors, colorsMapping, getAdvancementsPathType, getDatapackName, types, writeFile} from "../pack.ts"
 import {calculateModelData, getVariantsWithTypeColor} from "../variant.ts"
 import generateMainFile from "./mainFile.ts"
 import {ParentFile, Variant} from "./IJson.ts"
 import generatePatternFiles from "./patternFile.ts"
 import generateActiveFile from "./activeFile.ts"
 import generateGlobalFile from "./globalFile.ts"
-import generateFunctionFile from "./functionFile.ts";
 
 const TEMPLATE: ParentFile = {
     "author": "EclairDeFeu360 & Maner",
@@ -81,7 +80,6 @@ export default async function generatesFiles() {
 
         allTypeVariants[type] = typeVariants
         promises.push(generateMainFile(type, typeVariants))
-        promises.push(generateFunctionFile(type))
     })
 
     promises.push(generateGlobalFile(allTypeVariants))

@@ -1,8 +1,16 @@
-import {colors, getAdvancementsPathType, getDatapackFunctionPath, types, writeFile, writeStringFile} from "../pack.ts"
-import {MainFile, Variant} from "./IJson.ts"
+import {
+    colors,
+    getAdvancementsPathType,
+    getDatapackFunctionPath,
+    getDatapackName,
+    types,
+    writeFile,
+    writeStringFile
+} from "../pack.ts"
+import {MainFile, Variant} from "../advancement/IJson.ts"
 import {calculateModelData} from "../variant.ts"
 
-const TEMPLATE: string = "advancement grant @s only au_tropique:%TYPE%/%BODY_COLOR%/active"
+const TEMPLATE: string = `advancement grant @s only ${getDatapackName()}:%TYPE%/%BODY_COLOR%/active`
 
 function convertString(str: string, type: string, colorBody: string) {
     return str.replace(/%TYPE%/g, type).replace(/%BODY_COLOR%/g, colorBody)
