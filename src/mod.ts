@@ -1,6 +1,7 @@
+import {copy} from "https://deno.land/std/fs/copy.ts";
 import generatesFiles from "./advancement/mod.ts"
-import {generateFolders, generateLoad} from "./pack.ts"
-import initTexture from "./emptyTexture.ts"
+import {generateFolders, PATH_PACK} from "./pack.ts"
+import initTexture from "./models.ts"
 import generatesFunctionFiles from "./function/mod.ts";
 
 try {
@@ -9,8 +10,8 @@ try {
 }
 
 await generateFolders()
-await initTexture() // TODO TEMPORARY
-await generateLoad()
+await copy("./textures", `${PATH_PACK}/assets/minecraft/textures`)
+await initTexture()
 await generatesFiles()
 await generatesFunctionFiles()
 

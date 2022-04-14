@@ -93,9 +93,15 @@ export async function generateFolders() {
         }
     }
     promises.push(ensureDir(getMinecraftFunctionPath()), ensureDir(getDatapackFunctionPath()))
-    await Promise.all(promises)
-}
 
-export async function generateLoad() {
-    await writeFile(`${getMinecraftFunctionPath()}/load.json`, {"values": [`${getDatapackName()}:load`]})
+    for (const type of types) {
+        const modelsPathType = `${PATH_PACK}/assets/minecraft/models/item/${type}/`
+
+        for (const colorBody of colors) {
+            const modelPathTypeColorBody = `${modelsPathType}/${colorBody}/`
+            promises.push(ensureDir(modelPathTypeColorBody))
+        }
+    }
+
+    await Promise.all(promises)
 }
