@@ -28,7 +28,7 @@ const TELLRAW_DATA: string = JSON.stringify([{
     },
     "clickEvent": {"action": "open_url", "value": "https://github.com/AntoninHuaut/TropicalFish"}
 }])
-const content: string = `tellraw @a ${TELLRAW_DATA}`
+const content = `tellraw @a ${TELLRAW_DATA}`
 
 export default async function generateLoadFiles() {
     await writeStringFile(`${getDatapackFunctionPath()}/load.mcfunction`, content.trim())

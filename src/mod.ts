@@ -10,7 +10,7 @@ try {
 }
 
 await generateFolders()
-await copy("./textures", `${PATH_PACK}/assets/minecraft/textures`)
+await copy("./static/textures", `${PATH_PACK}/assets/minecraft/textures`)
 await initTexture()
 await generatesFiles()
 await generatesFunctionFiles()

@@ -1,6 +1,6 @@
 import {getDatapackFunctionPath, writeStringFile} from "../pack.ts"
 
-const content: string = `xp add @s 2700 levels`
+const content = `xp add @s 2700 levels`
 
 export async function generateGlobalReward() {
     const path = `${getDatapackFunctionPath()}/${getGlobalRewardFileName()}.mcfunction`
