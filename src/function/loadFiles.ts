@@ -1,11 +1,10 @@
 import {
     getDatapackFunctionPath,
     getDatapackName,
-    getDisplayDatapackName,
     getMinecraftFunctionPath,
     writeFile,
     writeStringFile
-} from "../pack.ts";
+} from "../pack.ts"
 
 const TELLRAW_DATA: string = JSON.stringify([{
     "text": "[",
@@ -13,18 +12,25 @@ const TELLRAW_DATA: string = JSON.stringify([{
     "hoverEvent": {
         "action": "show_text",
         "value": {
-            "text": "The pack has been successfully loaded", "color": "#CCCCCC"
+            "translate": "load.hover.preMessage",
+            "color": "#CCCCCC"
         }
     }
 }, {
     "text": "✔", "color": "#33CC33"
 }, {
-    "text": "]"
+    "text": "] "
 }, {
-    "text": ` ${getDisplayDatapackName()}`,
+    "translate": "global.name",
     "hoverEvent": {
         "action": "show_text",
-        "value": {"text": "By EclairDeFeu360 & Maner\nClick to learn more", "color": "#CCCCCC"}
+        "value": {
+            "translate": "load.hover.postMessage",
+            "with": [{
+                "translate": "global.author"
+            }],
+            "color": "#CCCCCC"
+        }
     },
     "clickEvent": {"action": "open_url", "value": "https://github.com/AntoninHuaut/TropicalFish"}
 }])

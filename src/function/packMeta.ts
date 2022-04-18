@@ -2,9 +2,13 @@ import {PATH_PACK, writeStringFile} from "../pack.ts"
 
 const content: string = JSON.stringify({
     "pack": {
-        "author":"EclairDeFeu360 & Maner",
+        "author": {
+            "translate": "global.author"
+        },
         "pack_format": 8,
-        "description": "§3Par EclairDeFeu360 & Maner"
+        "description": {
+            "translate": "global.author"
+        }
     }
 }, null, 2)
 

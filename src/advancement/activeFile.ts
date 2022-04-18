@@ -1,8 +1,11 @@
 import {getAdvancementsPathBodyColor, getDatapackName, writeFile} from "../pack.ts"
 import {ActiveFile} from "./IJson.ts"
+import {formatString} from "./utils.ts"
 
 const TEMPLATE: ActiveFile = {
-    "author": "EclairDeFeu360 & Maner",
+    "author": {
+        "translate": "global.author"
+    },
     "parent": `${getDatapackName()}:%TYPE%/%BODY_COLOR%/pattern_%PATTERN_COLOR%`,
     "criteria": {
         "active": {
@@ -11,17 +14,15 @@ const TEMPLATE: ActiveFile = {
     }
 }
 
-function convertString(str: string, type: string, colorBody: string, colorPattern: string) {
-    return str.replace(/%TYPE%/g, type)
-        .replace(/%BODY_COLOR%/g, colorBody)
-        .replace(/%PATTERN_COLOR%/g, colorPattern)
-}
-
 export default async function generateActiveFile(type: string, colorBody: string) {
     const colorPattern = "yellow"
     const content: ActiveFile = JSON.parse(JSON.stringify(TEMPLATE))
 
-    content.parent = convertString(content.parent, type, colorBody, colorPattern)
+    content.parent = formatString(content.parent, {
+        type: type,
+        colorBody: colorBody,
+        colorPattern: colorPattern
+    })
 
     const path = `${getAdvancementsPathBodyColor(type, colorBody)}/active.json`
     await writeFile(path, content)

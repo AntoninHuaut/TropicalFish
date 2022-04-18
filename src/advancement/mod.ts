@@ -5,16 +5,33 @@ import {ParentFile, Variant} from "./IJson.ts"
 import generatePatternFiles from "./patternFile.ts"
 import generateActiveFile from "./activeFile.ts"
 import generateGlobalFile from "./globalFile.ts"
+import {formatString, formatTranslateKey, IFormatParam} from "./utils.ts"
 
 const TEMPLATE: ParentFile = {
-    "author": "EclairDeFeu360 & Maner",
+    "author": {
+        "translate": "global.author"
+    },
     "display": {
         "icon": {
             "item": "minecraft:tropical_fish_bucket",
             "nbt": "{CustomModelData: %MODELDATA%}"
         },
-        "title": "Les petits %TYPE% %COLOR% ...",
-        "description": "Récupérer tous les %TYPE% %COLOR%",
+        "title": {
+            "translate": "advancement.catch.type_bodyColor.title",
+            "with": [{
+                "translate": "fish.type.%TYPE%"
+            }, {
+                "translate": "fish.color.%BODY_COLOR%"
+            }]
+        },
+        "description": {
+            "translate": "advancement.catch.type_bodyColor.description",
+            "with": [{
+                "translate": "fish.type.%TYPE%"
+            }, {
+                "translate": "fish.color.%BODY_COLOR%"
+            }]
+        },
         "frame": "goal",
         "show_toast": true,
         "announce_to_chat": false,
@@ -32,10 +49,6 @@ const LINE: Variant = {
 
 const BODY_FILENAME = "body_"
 
-function convertString(str: string, type: string, color: string) {
-    return str.replace(/%TYPE%/g, type).replace(/%COLOR%/g, color)
-}
-
 export default async function generatesFiles() {
     const promises: Promise<void>[] = []
     const colorsMappingFlip = Object.fromEntries(Object.entries(colorsMapping).map(([k, v]) => [v, k]))
@@ -49,10 +62,15 @@ export default async function generatesFiles() {
             const modelData: string = "" + calculateModelData(typeIndex, bodyColorIndex, 0)
             const content: ParentFile = JSON.parse(JSON.stringify(TEMPLATE))
 
+            const formatParams: IFormatParam = {
+                type: type,
+                colorBody: bodyColor
+            }
+
             content.display.icon.nbt = content.display.icon.nbt.replace(/%MODELDATA%/g, modelData)
-            content.display.title = convertString(content.display.title, type, bodyColor)
-            content.display.description = convertString(content.display.description, type, bodyColor)
-            content.parent = convertString(content.parent, type, bodyColor)
+            content.display.title = formatTranslateKey(content.display.title, formatParams)
+            content.display.description = formatTranslateKey(content.display.description, formatParams)
+            content.parent = formatString(content.parent, formatParams)
 
             const colorVariants = getVariantsWithTypeColor(type, bodyColor)
 

@@ -1,4 +1,4 @@
-import { typesMapping, colorsMapping } from "./pack.ts"
+import {colorsMapping, typesMapping} from "./pack.ts"
 
 function padNumber(num: number) {
     return ("" + num).padStart(2, "0")

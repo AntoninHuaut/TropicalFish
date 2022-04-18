@@ -1,5 +1,10 @@
+export interface TranslateKey {
+    translate: string;
+    with?: TranslateKey[];
+}
+
 export interface MainFile {
-    author: string;
+    author: TranslateKey;
     display: Display;
     criteria: Criteria;
     rewards?: Rewards;
@@ -23,8 +28,8 @@ export interface Rewards {
 
 export interface Display {
     icon: Icon;
-    title: string;
-    description: string;
+    title: TranslateKey;
+    description: TranslateKey;
     background?: string;
     frame: string;
     show_toast: boolean;
@@ -58,7 +63,7 @@ export interface ItemsEntity {
 //
 
 export interface ActiveFile {
-    author: string;
+    author: TranslateKey;
     parent: string;
     criteria: ActiveCriteria;
 }

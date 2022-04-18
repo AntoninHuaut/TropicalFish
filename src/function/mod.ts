@@ -1,8 +1,8 @@
-import {types} from "../pack.ts";
-import generateFunctionFile from "./patternFile.ts";
-import {generateGlobalReward} from "./globalRewardFile.ts";
-import generateLoadFiles from "./loadFiles.ts";
-import {generatePackMeta} from "./packMeta.ts";
+import {types} from "../pack.ts"
+import generateFunctionFile from "./patternFile.ts"
+import {generateGlobalReward} from "./globalRewardFile.ts"
+import generateLoadFiles from "./loadFiles.ts"
+import {generatePackMeta} from "./packMeta.ts"
 
 export default async function generatesFunctionFiles() {
     const promises: Promise<void>[] = []
