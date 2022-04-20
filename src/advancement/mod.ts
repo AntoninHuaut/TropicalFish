@@ -7,10 +7,10 @@ import {
 } from "../utils/pack.ts"
 import {calculateModelData, colors, colorsMapping, getVariantsWithTypeColor, types} from "../utils/variant.ts"
 import {
-    getActiveContent,
+    getActiveFileContent,
     getMainTemplate_GlobalFile,
-    getMainTemplate_MainFile,
-    getParentRewardsTemplate,
+    getMainFileContent,
+    getBodyPatternFileContnet,
     getParentTemplate_globalFile,
     getParentTemplate_mod
 } from "./advancementFactory.ts";
@@ -49,7 +49,7 @@ export default async function generatesFiles() {
                 const criteriaKey = variant.key
                 const criteriaValue = content.criteria[criteriaKey]
 
-                promises.push(generatePatternFiles({
+                promises.push(createBodyPatternFiles({
                     type: type,
                     colorBody: bodyColor,
                     colorPattern: patternColor,
@@ -63,23 +63,23 @@ export default async function generatesFiles() {
                 typeVariants.push({key: criteriaKey, value: criteriaValue})
             }
 
-            promises.push(createActiveFiles(type, bodyColor))
+            promises.push(createActiveFile(type, bodyColor))
             promises.push(writeFile(path, content))
         })
 
         allTypeVariants[type] = typeVariants
-        promises.push(generateMainFile(type, typeVariants))
+        promises.push(createMainFile(type, typeVariants))
     })
 
-    promises.push(generateGlobalFile(allTypeVariants))
+    promises.push(createGlobalFiles(allTypeVariants))
     await Promise.all(promises)
 }
 
-async function generateMainFile(type: string, typesVariants: {
+async function createMainFile(type: string, typesVariants: {
     key: string, value: Variant
 }[]) {
     const path = `${getAdvancementsPathType(type)}/main.json`
-    const content = getMainTemplate_MainFile({
+    const content = getMainFileContent({
         modelData: calculateModelData(types.indexOf(type), 0, 7),
         type: type
     })
@@ -91,11 +91,11 @@ async function generateMainFile(type: string, typesVariants: {
     await writeFile(path, content)
 }
 
-async function createActiveFiles(type: string, colorBody: string) {
+async function createActiveFile(type: string, colorBody: string) {
     const colorPattern = "yellow"
 
     const path = `${getAdvancementsPathBodyColor(type, colorBody)}/active.json`
-    const content = getActiveContent({
+    const content = getActiveFileContent({
         type: type,
         colorBody: colorBody,
         colorPattern: colorPattern
@@ -103,7 +103,7 @@ async function createActiveFiles(type: string, colorBody: string) {
     await writeFile(path, content)
 }
 
-async function generatePatternFiles(params: {
+async function createBodyPatternFiles(params: {
     type: string,
     colorBody: string,
     colorPattern: string,
@@ -122,7 +122,7 @@ async function generatePatternFiles(params: {
         parent = `${parent}/${params.colorBody}/pattern_${previousColor}`
     }
 
-    const content = getParentRewardsTemplate({
+    const content = getBodyPatternFileContnet({
         bodyColor: params.colorBody,
         modelData: calculateModelData(types.indexOf(params.type), colors.indexOf(params.colorBody), colorPatternIndex),
         parent: parent,
@@ -136,7 +136,7 @@ async function generatePatternFiles(params: {
     await writeFile(path, content)
 }
 
-async function generateGlobalFile(allTypesVariants: {
+async function createGlobalFiles(allTypesVariants: {
     [type: string]: { key: string, value: Variant }[]
 }) {
     const promises: Promise<void>[] = []

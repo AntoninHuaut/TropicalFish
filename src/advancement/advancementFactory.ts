@@ -40,7 +40,7 @@ class AdvancementFactory {
 TODO RENAME ALL METHODS AND FILES IN ADVANCEMENTS
  */
 
-export function getActiveContent(params: {
+export function getActiveFileContent(params: {
     type: string,
     colorBody: string,
     colorPattern: string
@@ -88,7 +88,7 @@ export function getParentTemplate_globalFile(params: {
         .display({
             icon: {
                 item: "minecraft:tropical_fish_bucket",
-                nbt: `{ "CustomModelData": ${params.modelData} }`
+                nbt: `{ CustomModelData: ${params.modelData} }`
             },
             title: {
                 translate: "advancement.catch.type.title",
@@ -113,7 +113,7 @@ export function getParentTemplate_globalFile(params: {
         .get()
 }
 
-export function getMainTemplate_MainFile(params: {
+export function getMainFileContent(params: {
     modelData: number,
     type: string
 }) {
@@ -122,7 +122,7 @@ export function getMainTemplate_MainFile(params: {
         .display({
             icon: {
                 item: "minecraft:tropical_fish_bucket",
-                nbt: `{ "CustomModelData": ${params.modelData} }`
+                nbt: `{ CustomModelData: ${params.modelData} }`
             },
             title: {
                 translate: "advancement.catch.type.title",
@@ -173,7 +173,7 @@ export function getParentTemplate_mod(params: {
         .display({
             icon: {
                 item: "minecraft:tropical_fish_bucket",
-                nbt: `{ "CustomModelData": ${params.modelData} }`
+                nbt: `{ CustomModelData: ${params.modelData} }`
             },
             title: {
                 translate: "advancement.catch.type_bodyColor.title",
@@ -201,7 +201,7 @@ export function getParentTemplate_mod(params: {
         .get()
 }
 
-export function getParentRewardsTemplate(params: {
+export function getBodyPatternFileContnet(params: {
     bodyColor: string,
     modelData: number,
     parent: string,
@@ -213,7 +213,7 @@ export function getParentRewardsTemplate(params: {
         .display({
             icon: {
                 item: "minecraft:tropical_fish_bucket",
-                nbt: `{ "CustomModelData": ${params.modelData} }`
+                nbt: `{ CustomModelData: ${params.modelData} }`
             },
             title: {
                 translate: "advancement.catch.type_bodyColor_patternColor.title",
