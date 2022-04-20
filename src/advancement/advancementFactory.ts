@@ -1,8 +1,7 @@
-import {getDatapackName} from "../utils/pack.ts";
+import {getDatapackName, getGlobalRewardFileName} from "../utils/pack.ts";
 import {Criteria, Display} from "./IJson.ts";
-import {getGlobalRewardFileName} from "../function/globalRewardFile.ts";
 
-export class AdvancementFactory {
+class AdvancementFactory {
 
     private json: Record<string, any> = {
         author: {

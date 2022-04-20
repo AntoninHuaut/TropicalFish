@@ -1,14 +1,11 @@
 import {
-    colors,
-    colorsMapping,
     getAdvancementsPath,
     getAdvancementsPathBodyColor,
     getAdvancementsPathType,
     getDatapackName,
-    types,
     writeFile
 } from "../utils/pack.ts"
-import {calculateModelData, getVariantsWithTypeColor} from "../utils/variant.ts"
+import {calculateModelData, colors, colorsMapping, getVariantsWithTypeColor, types} from "../utils/variant.ts"
 import {
     getActiveTemplate,
     getMainTemplate_GlobalFile,
