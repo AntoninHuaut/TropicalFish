@@ -4,7 +4,7 @@ import {
     getMinecraftFunctionPath,
     writeFile,
     writeStringFile
-} from "../pack.ts"
+} from "../utils/pack.ts"
 
 const TELLRAW_DATA: string = JSON.stringify([{
     "text": "[",

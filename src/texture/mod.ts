@@ -1,5 +1,5 @@
-import {colors, PATH_PACK, types, writeFile} from "./pack.ts"
-import {calculateModelData} from "./variant.ts"
+import {PACK_FOLDER_PATH, writeFile} from "../utils/pack.ts"
+import {calculateModelData, colors, types} from "../utils/variant.ts";
 
 export interface LinkItemsFile {
     parent: string;
@@ -23,7 +23,7 @@ export interface Predicate {
 async function createModelsFiles() {
     const promisesFiles: Promise<void>[] = []
     for (const type of types) {
-        const modelsPathType = `${PATH_PACK}/assets/minecraft/models/item/${type}/`
+        const modelsPathType = `${PACK_FOLDER_PATH}/assets/minecraft/models/item/${type}/`
 
         for (const colorBody of colors) {
             const modelPathTypeColorBody = `${modelsPathType}/${colorBody}/`
@@ -68,10 +68,10 @@ async function createLinkTexturesModelsFile() {
         })
     })
 
-    await writeFile(`${PATH_PACK}/assets/minecraft/models/item/tropical_fish_bucket.json`, content)
+    await writeFile(`${PACK_FOLDER_PATH}/assets/minecraft/models/item/tropical_fish_bucket.json`, content)
 }
 
-export default async function initTexture() {
+export default async function initTextures() {
     await createModelsFiles()
     await createLinkTexturesModelsFile()
 }

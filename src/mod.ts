@@ -1,18 +1,15 @@
 import {copy} from "https://deno.land/std/fs/copy.ts"
 import generatesFiles from "./advancement/mod.ts"
-import {generateFolders, PATH_PACK} from "./pack.ts"
-import initTexture from "./models.ts"
+import {generateFolders, PACK_FOLDER_PATH} from "./utils/pack.ts"
+import initTextures from "./texture/mod.ts"
 import generatesFunctionFiles from "./function/mod.ts"
 
-try {
-    await Deno.remove('pack', {recursive: true})
-} catch (_ignore) { /**/
-}
+await Deno.remove('pack', {recursive: true})
 
 await generateFolders()
-await copy("./static/textures", `${PATH_PACK}/assets/minecraft/textures`)
-await copy("./static/lang", `${PATH_PACK}/assets/minecraft/lang`)
-await initTexture()
+await copy("./static/textures", `${PACK_FOLDER_PATH}/assets/minecraft/textures`)
+await copy("./static/lang", `${PACK_FOLDER_PATH}/assets/minecraft/lang`)
+await initTextures()
 await generatesFiles()
 await generatesFunctionFiles()
 
