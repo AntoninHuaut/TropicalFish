@@ -55,7 +55,7 @@ export function getActiveFileContent(params: {
         .get()
 }
 
-export function getMainTemplate_GlobalFile() {
+export function getGlobaleFileContent() {
     return new AdvancementFactory()
         .criteria({})
         .display({
@@ -78,7 +78,7 @@ export function getMainTemplate_GlobalFile() {
         .get()
 }
 
-export function getParentTemplate_globalFile(params: {
+export function getGlobalTypeFileContent(params: {
     modelData: number,
     parent: string,
     type: string
@@ -145,7 +145,7 @@ export function getMainFileContent(params: {
         .get()
 }
 
-export function getParentTemplate_mod(params: {
+export function getBodyFileContent(params: {
     bodyColor: string,
     modelData: number,
     type: string,
@@ -201,7 +201,7 @@ export function getParentTemplate_mod(params: {
         .get()
 }
 
-export function getBodyPatternFileContnet(params: {
+export function getPatternFileContent(params: {
     bodyColor: string,
     modelData: number,
     parent: string,

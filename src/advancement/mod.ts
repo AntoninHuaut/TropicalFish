@@ -8,11 +8,11 @@ import {
 import {calculateModelData, colors, colorsMapping, getVariantsWithTypeColor, types} from "../utils/variant.ts"
 import {
     getActiveFileContent,
-    getMainTemplate_GlobalFile,
+    getBodyFileContent,
+    getGlobaleFileContent,
+    getGlobalTypeFileContent,
     getMainFileContent,
-    getBodyPatternFileContnet,
-    getParentTemplate_globalFile,
-    getParentTemplate_mod
+    getPatternFileContent
 } from "./advancementFactory.ts";
 import {Criteria, Variant} from "./IJson.ts";
 
@@ -29,6 +29,7 @@ export default async function generatesFiles() {
         }[] = []
 
         colors.forEach((bodyColor, bodyColorIndex) => {
+            // TODO bug
             const path = `${getAdvancementsPathType(type)}/body_${bodyColor}.json`
             const variantsColor = getVariantsWithTypeColor(type, bodyColor).map(colorVariant => {
                 return {
@@ -36,7 +37,7 @@ export default async function generatesFiles() {
                     key: `variant_${colorVariant}`
                 }
             })
-            const content = getParentTemplate_mod({
+            const content = getBodyFileContent({
                 bodyColor: bodyColor,
                 modelData: calculateModelData(typeIndex, bodyColorIndex, 0),
                 variantsColor: variantsColor,
@@ -49,7 +50,7 @@ export default async function generatesFiles() {
                 const criteriaKey = variant.key
                 const criteriaValue = content.criteria[criteriaKey]
 
-                promises.push(createBodyPatternFiles({
+                promises.push(createPatternFiles({
                     type: type,
                     colorBody: bodyColor,
                     colorPattern: patternColor,
@@ -103,7 +104,7 @@ async function createActiveFile(type: string, colorBody: string) {
     await writeFile(path, content)
 }
 
-async function createBodyPatternFiles(params: {
+async function createPatternFiles(params: {
     type: string,
     colorBody: string,
     colorPattern: string,
@@ -122,7 +123,7 @@ async function createBodyPatternFiles(params: {
         parent = `${parent}/${params.colorBody}/pattern_${previousColor}`
     }
 
-    const content = getBodyPatternFileContnet({
+    const content = getPatternFileContent({
         bodyColor: params.colorBody,
         modelData: calculateModelData(types.indexOf(params.type), colors.indexOf(params.colorBody), colorPatternIndex),
         parent: parent,
@@ -142,12 +143,12 @@ async function createGlobalFiles(allTypesVariants: {
     const promises: Promise<void>[] = []
 
     const path = `${getAdvancementsPath()}/global.json`
-    const content = getMainTemplate_GlobalFile()
+    const content = getGlobaleFileContent()
     let lastParent = "global"
 
     for (const type of Object.keys(allTypesVariants)) {
         const typePath = `${getAdvancementsPath()}/global_${type}.json`
-        const typeContent = getParentTemplate_globalFile({
+        const typeContent = getGlobalTypeFileContent({
             modelData: calculateModelData(types.indexOf(type), 0, 7),
             parent: lastParent,
             type: type
