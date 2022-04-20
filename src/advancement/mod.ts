@@ -7,7 +7,7 @@ import {
 } from "../utils/pack.ts"
 import {calculateModelData, colors, colorsMapping, getVariantsWithTypeColor, types} from "../utils/variant.ts"
 import {
-    getActiveTemplate,
+    getActiveContent,
     getMainTemplate_GlobalFile,
     getMainTemplate_MainFile,
     getParentRewardsTemplate,
@@ -63,7 +63,7 @@ export default async function generatesFiles() {
                 typeVariants.push({key: criteriaKey, value: criteriaValue})
             }
 
-            promises.push(generateActiveFile(type, bodyColor))
+            promises.push(createActiveFiles(type, bodyColor))
             promises.push(writeFile(path, content))
         })
 
@@ -91,11 +91,11 @@ async function generateMainFile(type: string, typesVariants: {
     await writeFile(path, content)
 }
 
-async function generateActiveFile(type: string, colorBody: string) {
+async function createActiveFiles(type: string, colorBody: string) {
     const colorPattern = "yellow"
 
     const path = `${getAdvancementsPathBodyColor(type, colorBody)}/active.json`
-    const content = getActiveTemplate({
+    const content = getActiveContent({
         type: type,
         colorBody: colorBody,
         colorPattern: colorPattern

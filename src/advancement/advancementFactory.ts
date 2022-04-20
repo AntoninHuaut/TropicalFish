@@ -40,7 +40,7 @@ class AdvancementFactory {
 TODO RENAME ALL METHODS AND FILES IN ADVANCEMENTS
  */
 
-export function getActiveTemplate(params: {
+export function getActiveContent(params: {
     type: string,
     colorBody: string,
     colorPattern: string
