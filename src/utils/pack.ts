@@ -1,6 +1,6 @@
 import {ensureDir} from "https://deno.land/std/fs/mod.ts"
-import "https://deno.land/x/dotenv/load.ts"
 import {colors, types} from "./variant.ts";
+import {config} from "../config.ts";
 
 export const PACK_FOLDER_PATH = "pack"
 
@@ -28,7 +28,7 @@ export async function generateFolders() {
 
 export async function writeFile(path: string, content: object) {
     let stringify: string;
-    if (Deno.env.get("JSON_MINIFIED") === "true") {
+    if (config.jsonMinified) {
         stringify = JSON.stringify(content)
     } else {
         stringify = JSON.stringify(content, null, 2)
@@ -41,7 +41,7 @@ export async function writeStringFile(path: string, content: string) {
 }
 
 export function getDatapackName(): string {
-    return Deno.env.get("DATAPACK_NAME") ?? 'au_tropique'
+    return config.datapackTechName
 }
 
 export function getMinecraftFunctionPath() {
