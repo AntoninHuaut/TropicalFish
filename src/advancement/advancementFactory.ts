@@ -38,7 +38,7 @@ export class AdvancementFactory {
 }
 
 /*
-TODO RENAME ALL METHODS
+TODO RENAME ALL METHODS AND FILES IN ADVANCEMENTS
  */
 
 export function getActiveTemplate(config: {
@@ -149,10 +149,28 @@ export function getMainTemplate_MainFile(config: {
 export function getParentTemplate_mod(config: {
     bodyColor: string,
     modelData: number,
-    type: string
+    type: string,
+    variantsColor: { color: number, key: string }[]
 }) {
+    const variants = config.variantsColor.map(variantColor => {
+        return {
+            [`variant_${variantColor}`]: {
+                trigger: "minecraft:inventory_changed",
+                conditions: {
+                    items: [{
+                        items: ["minecraft:tropical_fish_bucket"],
+                        nbt: `{BucketVariantTag: ${variantColor}}`
+                    }]
+                }
+            }
+        }
+    })
+
+    const criteria = {}
+    Object.assign(criteria, ...variants)
+
     return new AdvancementFactory()
-        .criteria({})
+        .criteria(criteria)
         .display({
             icon: {
                 item: "minecraft:tropical_fish_bucket",

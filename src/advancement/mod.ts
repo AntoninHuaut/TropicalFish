@@ -25,30 +25,32 @@ export default async function generatesFiles() {
 
         colors.forEach((bodyColor, bodyColorIndex) => {
             const path = `${getAdvancementsPathType(type)}/${BODY_FILENAME}${bodyColor}.json`
+            const variantsColor = getVariantsWithTypeColor(type, bodyColor).map(colorVariant => {
+                return {
+                    color: colorVariant,
+                    key: `variant_${colorVariant}`
+                }
+            })
             const content = getParentTemplate_mod({
                 bodyColor: bodyColor,
                 modelData: calculateModelData(typeIndex, bodyColorIndex, 0),
+                variantsColor: variantsColor,
                 type: type
             })
 
-            const colorVariants = getVariantsWithTypeColor(type, bodyColor)
-
             let patternColorIndex = 0
-            for (const variant of colorVariants) {
-                const contentKey = `variant_${variant}`
-                const contentLine: Variant = JSON.parse(JSON.stringify(LINE))
-
-                contentLine.conditions.items[0].nbt = contentLine.conditions.items[0].nbt.replace(/%VARIANT%/g, "" + variant)
-                content.criteria[contentKey] = contentLine
-
+            for (const variant of variantsColor) {
                 const patternColor = colorsMappingFlip[patternColorIndex]
+                const criteriaKey = variant.key
+                const criteriaValue = content.criteria[criteriaKey]
+
                 promises.push(generatePatternFiles(type, bodyColor, patternColor, {
-                    key: contentKey,
-                    value: contentLine
+                    key: criteriaKey,
+                    value: criteriaValue
                 }))
 
                 patternColorIndex++
-                typeVariants.push({key: contentKey, value: contentLine})
+                typeVariants.push({key: criteriaKey, value: criteriaValue})
             }
 
             promises.push(generateActiveFile(type, bodyColor))
