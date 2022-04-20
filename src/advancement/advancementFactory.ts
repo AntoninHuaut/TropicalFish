@@ -225,6 +225,6 @@ export function getParentRewardsTemplate(config: {
             hidden: false
         })
         .parent(`${config.parent}`)
-        .rewards(`${config.type}`) // TODO check rewards may not generated
+        .rewards(`${config.type}`)
         .get()
 }

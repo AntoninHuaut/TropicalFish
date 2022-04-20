@@ -56,14 +56,6 @@ export function getDatapackName(): string {
     return Deno.env.get("DATAPACK_NAME") ?? 'au_tropique'
 }
 
-export function getDisplayDatapackName(): string {
-    return getDatapackName()
-        .replace(/_/g, ' ')
-        .split(' ')
-        .map(w => w.charAt(0).toUpperCase() + w.slice(1))
-        .join(' ');
-}
-
 export function getMinecraftFunctionPath() {
     return `${PATH_PACK}/data/minecraft/tags/functions`
 }
