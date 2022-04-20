@@ -89,9 +89,7 @@ export function getParentTemplate_globalFile(config: {
         .display({
             icon: {
                 item: "minecraft:tropical_fish_bucket",
-                nbt: {
-                    CustomModelData: config.modelData
-                }
+                nbt: `{ "CustomModelData": ${config.modelData} }`
             },
             title: {
                 translate: "advancement.catch.type.title",
@@ -125,9 +123,7 @@ export function getMainTemplate_MainFile(config: {
         .display({
             icon: {
                 item: "minecraft:tropical_fish_bucket",
-                nbt: {
-                    CustomModelData: config.modelData
-                }
+                nbt: `{ "CustomModelData": ${config.modelData} }`
             },
             title: {
                 translate: "advancement.catch.type.title",
@@ -160,9 +156,7 @@ export function getParentTemplate_mod(config: {
         .display({
             icon: {
                 item: "minecraft:tropical_fish_bucket",
-                nbt: {
-                    CustomModelData: config.modelData
-                }
+                nbt: `{ "CustomModelData": ${config.modelData} }`
             },
             title: {
                 translate: "advancement.catch.type_bodyColor.title",
@@ -202,9 +196,7 @@ export function getParentRewardsTemplate(config: {
         .display({
             icon: {
                 item: "minecraft:tropical_fish_bucket",
-                nbt: {
-                    CustomModelData: config.modelData
-                }
+                nbt: `{ "CustomModelData": ${config.modelData} }`
             },
             title: {
                 translate: "advancement.catch.type_bodyColor_patternColor.title",

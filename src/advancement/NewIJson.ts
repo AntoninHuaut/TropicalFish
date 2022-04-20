@@ -38,7 +38,7 @@ export interface NewRewards {
 
 export interface NewIcon {
     item: string;
-    nbt?: { CustomModelData: number };
+    nbt?: string;
 }
 
 export interface NewVariant {
