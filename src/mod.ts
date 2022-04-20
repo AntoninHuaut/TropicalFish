@@ -4,10 +4,7 @@ import {generateFolders, PACK_FOLDER_PATH} from "./utils/pack.ts"
 import initTextures from "./texture/mod.ts"
 import generatesFunctionFiles from "./function/mod.ts"
 
-try {
-    await Deno.remove('pack', {recursive: true})
-} catch (_ignore) { /**/
-}
+await Deno.remove('pack', {recursive: true})
 
 await generateFolders()
 await copy("./static/textures", `${PACK_FOLDER_PATH}/assets/minecraft/textures`)
