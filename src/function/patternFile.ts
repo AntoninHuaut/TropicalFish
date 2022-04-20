@@ -1,4 +1,4 @@
-import {colors, getDatapackFunctionPath, getDatapackName, writeStringFile} from "../pack.ts"
+import {colors, getDatapackFunctionPath, getDatapackName, writeStringFile} from "../utils/pack.ts"
 import {formatString} from "../advancement/utils.ts"
 
 const TEMPLATE = `advancement grant @s only ${getDatapackName()}:%TYPE%/%BODY_COLOR%/active`

@@ -1,47 +1,13 @@
-import {colors, colorsMapping, getAdvancementsPathType, getDatapackName, types, writeFile} from "../pack.ts"
-import {calculateModelData, getVariantsWithTypeColor} from "../variant.ts"
+import {colors, colorsMapping, getAdvancementsPathType, getDatapackName, types, writeFile} from "../utils/pack.ts"
+import {calculateModelData, getVariantsWithTypeColor} from "../utils/variant.ts"
 import generateMainFile from "./mainFile.ts"
 import {ParentFile, Variant} from "./IJson.ts"
 import generatePatternFiles from "./patternFile.ts"
 import generateActiveFile from "./activeFile.ts"
 import generateGlobalFile from "./globalFile.ts"
 import {formatString, formatTranslateKey, IFormatParam} from "./utils.ts"
+import {getParentTemplate_mod} from "./advancementFactory.ts";
 
-const TEMPLATE: ParentFile = {
-    "author": {
-        "translate": "global.author"
-    },
-    "display": {
-        "icon": {
-            "item": "minecraft:tropical_fish_bucket",
-            "nbt": "{CustomModelData: %MODELDATA%}"
-        },
-        "title": {
-            "translate": "advancement.catch.type_bodyColor.title",
-            "with": [{
-                "translate": "fish.type.%TYPE%"
-            }, {
-                "translate": "fish.color.%BODY_COLOR%"
-            }]
-        },
-        "description": {
-            "translate": "advancement.catch.type_bodyColor.description",
-            "with": [{
-                "translate": "fish.type.%TYPE%"
-            }, {
-                "translate": "fish.color.%BODY_COLOR%"
-            }]
-        },
-        "frame": "goal",
-        "show_toast": true,
-        "announce_to_chat": false,
-        "hidden": false
-    },
-    "parent": `${getDatapackName()}:%TYPE%/main`,
-    "criteria": {
-        // FILL
-    }
-}
 const LINE: Variant = {
     "trigger": "minecraft:inventory_changed",
     "conditions": {"items": [{"items": ["minecraft:tropical_fish_bucket"], "nbt": "{BucketVariantTag:%VARIANT%}"}]}
@@ -60,7 +26,7 @@ export default async function generatesFiles() {
         colors.forEach((bodyColor, bodyColorIndex) => {
             const path = `${getAdvancementsPathType(type)}/${BODY_FILENAME}${bodyColor}.json`
             const modelData: string = "" + calculateModelData(typeIndex, bodyColorIndex, 0)
-            const content: ParentFile = JSON.parse(JSON.stringify(TEMPLATE))
+            const content: ParentFile = getParentTemplate_mod()
 
             const formatParams: IFormatParam = {
                 type: type,

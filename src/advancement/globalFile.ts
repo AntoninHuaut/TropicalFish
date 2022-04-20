@@ -1,82 +1,19 @@
 import {MainFile, ParentFile, Variant} from "./IJson.ts"
-import {getAdvancementsPath, getDatapackName, types, writeFile} from "../pack.ts"
-import {calculateModelData} from "../variant.ts"
-import {getGlobalRewardFileName} from "../function/globalRewardFile.ts"
+import {getAdvancementsPath, getDatapackName, types, writeFile} from "../utils/pack.ts"
+import {calculateModelData} from "../utils/variant.ts"
 import {formatTranslateKey} from "./utils.ts"
-
-const TEMPLATE: MainFile = {
-    "author": {
-        "translate": "global.author"
-    },
-    "display": {
-        "icon": {
-            "item": "minecraft:tropical_fish_bucket",
-            "nbt": "{}"
-        },
-        "title": {
-            "translate": "advancement.catch.fish.title"
-        },
-        "description": {
-            "translate": "advancement.catch.fish.description"
-        },
-        "background": "minecraft:textures/block/tube_coral_block.png",
-        "frame": "challenge",
-        "show_toast": true,
-        "announce_to_chat": true,
-        "hidden": false
-    },
-    "criteria": {
-        // FILL
-    },
-    "rewards": {
-        "function": `${getDatapackName()}:${getGlobalRewardFileName()}`
-    }
-}
-
-// Duplicate an achievement to show the progress in the global tab
-const TYPE_TEMPLATE: ParentFile = {
-    "author": {
-        "translate": "global.author"
-    },
-    "display": {
-        "icon": {
-            "item": "minecraft:tropical_fish_bucket",
-            "nbt": "{CustomModelData: %MODELDATA%}"
-        },
-        "title": {
-            "translate": "advancement.catch.type.title",
-            "with": [{
-                "translate": "fish.type.%TYPE%"
-            }]
-        },
-        "description": {
-            "translate": "advancement.catch.type.description",
-            "with": [{
-                "translate": "fish.type.%TYPE%"
-            }]
-        },
-        "background": "minecraft:textures/block/tube_coral_block.png",
-        "frame": "goal",
-        "show_toast": false,
-        "announce_to_chat": false,
-        "hidden": false
-    },
-    "parent": `${getDatapackName()}:global`,
-    "criteria": {
-        // FILL
-    }
-}
+import {getMainTemplate_GlobalFile, getParentTemplate_globalFile} from "./advancementFactory.ts";
 
 export default async function generateGlobalFile(allTypesVariants: { [type: string]: { key: string, value: Variant }[] }) {
     const promises: Promise<void>[] = []
 
     const path = `${getAdvancementsPath()}/global.json`
-    const content: MainFile = JSON.parse(JSON.stringify(TEMPLATE))
+    const content: MainFile = getMainTemplate_GlobalFile()
     let lastParent = "global"
 
     for (const type of Object.keys(allTypesVariants)) {
         const typePath = `${getAdvancementsPath()}/global_${type}.json`
-        const typeContent: ParentFile = JSON.parse(JSON.stringify(TYPE_TEMPLATE))
+        const typeContent: ParentFile = getParentTemplate_globalFile()
         const modelData: string = "" + calculateModelData(types.indexOf(type), 0, 7)
 
         typeContent.display.icon.nbt = typeContent.display.icon.nbt.replace(/%MODELDATA%/g, modelData)

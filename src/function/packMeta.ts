@@ -1,4 +1,4 @@
-import {PATH_PACK, writeStringFile} from "../pack.ts"
+import {PATH_PACK, writeStringFile} from "../utils/pack.ts"
 
 const content: string = JSON.stringify({
     "pack": {

@@ -1,7 +1,7 @@
 import {copy} from "https://deno.land/std/fs/copy.ts"
 import generatesFiles from "./advancement/mod.ts"
-import {generateFolders, PATH_PACK} from "./pack.ts"
-import initTexture from "./models.ts"
+import {generateFolders, PATH_PACK} from "./utils/pack.ts"
+import initTexture from "./utils/models.ts"
 import generatesFunctionFiles from "./function/mod.ts"
 
 try {

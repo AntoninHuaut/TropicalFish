@@ -1,4 +1,4 @@
-import {getDatapackFunctionPath, writeStringFile} from "../pack.ts"
+import {getDatapackFunctionPath, writeStringFile} from "../utils/pack.ts"
 
 const content = `xp add @s 2700 levels`
 

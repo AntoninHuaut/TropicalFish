@@ -1,4 +1,4 @@
-import {types} from "../pack.ts"
+import {types} from "../utils/pack.ts"
 import generateFunctionFile from "./patternFile.ts"
 import {generateGlobalReward} from "./globalRewardFile.ts"
 import generateLoadFiles from "./loadFiles.ts"
