@@ -3,31 +3,35 @@ import {calculateModelData} from "../utils/variant.ts"
 import {getParentRewardsTemplate} from "./advancementFactory.ts";
 import {Criteria, Variant} from "./IJson.ts";
 
-export default async function generatePatternFiles(type: string, colorBody: string, colorPattern: string,
-                                                   variantObj: { key: string, value: Variant }) {
+export default async function generatePatternFiles(params: {
+    type: string,
+    colorBody: string,
+    colorPattern: string,
+    variantObj: { key: string, value: Variant }
+}) {
     const criteriaItem: Criteria = {
-        [variantObj.key]: variantObj.value
+        [params.variantObj.key]: params.variantObj.value
     }
 
-    const colorPatternIndex = colors.indexOf(colorPattern)
-    let parent = type
+    const colorPatternIndex = colors.indexOf(params.colorPattern)
+    let parent = params.type
     if (colorPatternIndex == 0) {
-        parent = `${parent}/body_${colorBody}`
+        parent = `${parent}/body_${params.colorBody}`
     } else {
         const previousColor = colors[colorPatternIndex - 1]
-        parent = `${parent}/${colorBody}/pattern_${previousColor}`
+        parent = `${parent}/${params.colorBody}/pattern_${previousColor}`
     }
 
     const content = getParentRewardsTemplate({
-        bodyColor: colorBody,
-        modelData: calculateModelData(types.indexOf(type), colors.indexOf(colorBody), colors.indexOf(colorPattern)),
+        bodyColor: params.colorBody,
+        modelData: calculateModelData(types.indexOf(params.type), colors.indexOf(params.colorBody), colorPatternIndex),
         parent: parent,
-        patternColor: colorPattern,
-        type: type
+        patternColor: params.colorPattern,
+        type: params.type
     })
 
     content.criteria = criteriaItem
 
-    const path = `${getAdvancementsPathBodyColor(type, colorBody)}/pattern_${colorPattern}.json`
+    const path = `${getAdvancementsPathBodyColor(params.type, params.colorBody)}/pattern_${params.colorPattern}.json`
     await writeFile(path, content)
 }

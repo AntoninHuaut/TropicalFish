@@ -41,13 +41,13 @@ export class AdvancementFactory {
 TODO RENAME ALL METHODS AND FILES IN ADVANCEMENTS
  */
 
-export function getActiveTemplate(config: {
+export function getActiveTemplate(params: {
     type: string,
     colorBody: string,
     colorPattern: string
 }) {
     return new AdvancementFactory()
-        .parent(`${config.type}/${config.colorBody}/pattern_${config.colorPattern}`)
+        .parent(`${params.type}/${params.colorBody}/pattern_${params.colorPattern}`)
         .criteria({
             active: {
                 trigger: "minecraft:impossible"
@@ -79,7 +79,7 @@ export function getMainTemplate_GlobalFile() {
         .get()
 }
 
-export function getParentTemplate_globalFile(config: {
+export function getParentTemplate_globalFile(params: {
     modelData: number,
     parent: string,
     type: string
@@ -89,18 +89,18 @@ export function getParentTemplate_globalFile(config: {
         .display({
             icon: {
                 item: "minecraft:tropical_fish_bucket",
-                nbt: `{ "CustomModelData": ${config.modelData} }`
+                nbt: `{ "CustomModelData": ${params.modelData} }`
             },
             title: {
                 translate: "advancement.catch.type.title",
                 with: [{
-                    translate: `fish.type.${config.type}`
+                    translate: `fish.type.${params.type}`
                 }]
             },
             description: {
                 translate: "advancement.catch.type.description",
                 with: [{
-                    translate: `fish.type.${config.type}`
+                    translate: `fish.type.${params.type}`
                 }]
             },
             background: "minecraft:textures/block/tube_coral_block.png",
@@ -109,12 +109,12 @@ export function getParentTemplate_globalFile(config: {
             announce_to_chat: false,
             hidden: false
         })
-        .parent(config.parent)
+        .parent(params.parent)
         .rewards(getGlobalRewardFileName())
         .get()
 }
 
-export function getMainTemplate_MainFile(config: {
+export function getMainTemplate_MainFile(params: {
     modelData: number,
     type: string
 }) {
@@ -123,18 +123,18 @@ export function getMainTemplate_MainFile(config: {
         .display({
             icon: {
                 item: "minecraft:tropical_fish_bucket",
-                nbt: `{ "CustomModelData": ${config.modelData} }`
+                nbt: `{ "CustomModelData": ${params.modelData} }`
             },
             title: {
                 translate: "advancement.catch.type.title",
                 with: [{
-                    translate: `fish.type.${config.type}`
+                    translate: `fish.type.${params.type}`
                 }]
             },
             description: {
                 translate: "advancement.catch.type.description",
                 with: [{
-                    translate: `fish.type.${config.type}`
+                    translate: `fish.type.${params.type}`
                 }]
             },
             background: "minecraft:textures/block/tube_coral_block.png",
@@ -146,13 +146,13 @@ export function getMainTemplate_MainFile(config: {
         .get()
 }
 
-export function getParentTemplate_mod(config: {
+export function getParentTemplate_mod(params: {
     bodyColor: string,
     modelData: number,
     type: string,
     variantsColor: { color: number, key: string }[]
 }) {
-    const variants = config.variantsColor.map(variantColor => {
+    const variants = params.variantsColor.map(variantColor => {
         return {
             [`variant_${variantColor}`]: {
                 trigger: "minecraft:inventory_changed",
@@ -174,22 +174,22 @@ export function getParentTemplate_mod(config: {
         .display({
             icon: {
                 item: "minecraft:tropical_fish_bucket",
-                nbt: `{ "CustomModelData": ${config.modelData} }`
+                nbt: `{ "CustomModelData": ${params.modelData} }`
             },
             title: {
                 translate: "advancement.catch.type_bodyColor.title",
                 with: [{
-                    translate: `fish.type.${config.type}`
+                    translate: `fish.type.${params.type}`
                 }, {
-                    translate: `fish.color.${config.bodyColor}`
+                    translate: `fish.color.${params.bodyColor}`
                 }]
             },
             description: {
                 translate: "advancement.catch.type_bodyColor.description",
                 with: [{
-                    translate: `fish.type.${config.type}`
+                    translate: `fish.type.${params.type}`
                 }, {
-                    translate: `fish.color.${config.bodyColor}`
+                    translate: `fish.color.${params.bodyColor}`
                 }]
             },
             background: "minecraft:textures/block/tube_coral_block.png",
@@ -198,11 +198,11 @@ export function getParentTemplate_mod(config: {
             announce_to_chat: false,
             hidden: false
         })
-        .parent(`${config.type}/main`)
+        .parent(`${params.type}/main`)
         .get()
 }
 
-export function getParentRewardsTemplate(config: {
+export function getParentRewardsTemplate(params: {
     bodyColor: string,
     modelData: number,
     parent: string,
@@ -214,26 +214,26 @@ export function getParentRewardsTemplate(config: {
         .display({
             icon: {
                 item: "minecraft:tropical_fish_bucket",
-                nbt: `{ "CustomModelData": ${config.modelData} }`
+                nbt: `{ "CustomModelData": ${params.modelData} }`
             },
             title: {
                 translate: "advancement.catch.type_bodyColor_patternColor.title",
                 with: [{
-                    translate: `fish.type.${config.type}`
+                    translate: `fish.type.${params.type}`
                 }, {
-                    translate: `fish.color.${config.bodyColor}`
+                    translate: `fish.color.${params.bodyColor}`
                 }, {
-                    translate: `fish.color.${config.patternColor}`
+                    translate: `fish.color.${params.patternColor}`
                 }]
             },
             description: {
                 translate: "advancement.catch.type_bodyColor_patternColor.description",
                 with: [{
-                    translate: `fish.type.${config.type}`
+                    translate: `fish.type.${params.type}`
                 }, {
-                    translate: `fish.color.${config.bodyColor}`
+                    translate: `fish.color.${params.bodyColor}`
                 }, {
-                    translate: `fish.color.${config.patternColor}`
+                    translate: `fish.color.${params.patternColor}`
                 }]
             },
             background: "minecraft:textures/block/tube_coral_block.png",
@@ -242,7 +242,7 @@ export function getParentRewardsTemplate(config: {
             announce_to_chat: false,
             hidden: false
         })
-        .parent(`${config.parent}`)
-        .rewards(`${config.type}`)
+        .parent(`${params.parent}`)
+        .rewards(`${params.type}`)
         .get()
 }

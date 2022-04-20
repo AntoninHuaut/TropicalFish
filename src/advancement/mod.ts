@@ -7,8 +7,6 @@ import generateGlobalFile from "./globalFile.ts"
 import {getParentTemplate_mod} from "./advancementFactory.ts";
 import {Variant} from "./IJson.ts";
 
-const BODY_FILENAME = "body_"
-
 export default async function generatesFiles() {
     const promises: Promise<void>[] = []
     const colorsMappingFlip = Object.fromEntries(Object.entries(colorsMapping).map(([k, v]) => [v, k]))
@@ -22,7 +20,7 @@ export default async function generatesFiles() {
         }[] = []
 
         colors.forEach((bodyColor, bodyColorIndex) => {
-            const path = `${getAdvancementsPathType(type)}/${BODY_FILENAME}${bodyColor}.json`
+            const path = `${getAdvancementsPathType(type)}/body_${bodyColor}.json`
             const variantsColor = getVariantsWithTypeColor(type, bodyColor).map(colorVariant => {
                 return {
                     color: colorVariant,
