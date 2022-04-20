@@ -1,5 +1,5 @@
 import {getDatapackName} from "../utils/pack.ts";
-import {NewCriteria, NewDisplay} from "./NewIJson.ts";
+import {Criteria, Display} from "./IJson.ts";
 import {getGlobalRewardFileName} from "../function/globalRewardFile.ts";
 
 export class AdvancementFactory {
@@ -10,12 +10,12 @@ export class AdvancementFactory {
         }
     }
 
-    criteria(criteria: NewCriteria): this {
+    criteria(criteria: Criteria): this {
         this.json.criteria = criteria
         return this
     }
 
-    display(display: NewDisplay): this {
+    display(display: Display): this {
         this.json.display = display
         return this
     }

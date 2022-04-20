@@ -1,9 +1,11 @@
-import {Variant} from "./IJson.ts"
 import {getAdvancementsPath, getDatapackName, types, writeFile} from "../utils/pack.ts"
 import {calculateModelData} from "../utils/variant.ts"
 import {getMainTemplate_GlobalFile, getParentTemplate_globalFile} from "./advancementFactory.ts";
+import {Variant} from "./IJson.ts";
 
-export default async function generateGlobalFile(allTypesVariants: { [type: string]: { key: string, value: Variant }[] }) {
+export default async function generateGlobalFile(allTypesVariants: {
+    [type: string]: { key: string, value: Variant }[]
+}) {
     const promises: Promise<void>[] = []
 
     const path = `${getAdvancementsPath()}/global.json`

@@ -1,9 +1,10 @@
 import {colors, getAdvancementsPathBodyColor, types, writeFile} from "../utils/pack.ts"
-import {Criteria, Variant} from "./IJson.ts"
 import {calculateModelData} from "../utils/variant.ts"
 import {getParentRewardsTemplate} from "./advancementFactory.ts";
+import {Criteria, Variant} from "./IJson.ts";
 
-export default async function generatePatternFiles(type: string, colorBody: string, colorPattern: string, variantObj: { key: string, value: Variant }) {
+export default async function generatePatternFiles(type: string, colorBody: string, colorPattern: string,
+                                                   variantObj: { key: string, value: Variant }) {
     const criteriaItem: Criteria = {
         [variantObj.key]: variantObj.value
     }

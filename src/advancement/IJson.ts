@@ -1,16 +1,37 @@
-// TODO
+export interface TranslateKey {
+    translate: string;
+    with?: TranslateKey[];
+}
 
-export interface Criteria {
+interface StringCriteria {
     [variant: string]: Variant;
+}
+
+interface ActiveCriteria {
+    active?: { trigger: string; };
+}
+
+export type Criteria = StringCriteria | ActiveCriteria
+
+export interface Display {
+    icon: Icon;
+    title: TranslateKey;
+    description: TranslateKey;
+    background?: string;
+    frame: string;
+    show_toast: boolean;
+    announce_to_chat: boolean;
+    hidden: boolean;
+}
+
+export interface Icon {
+    item: string;
+    nbt?: string;
 }
 
 export interface Variant {
     trigger: string;
-    conditions: Conditions;
-}
-
-export interface Conditions {
-    items: (ItemsEntity)[];
+    conditions: { items: (ItemsEntity)[] };
 }
 
 export interface ItemsEntity {
