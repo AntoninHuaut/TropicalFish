@@ -36,10 +36,6 @@ class AdvancementFactory {
     }
 }
 
-/*
-TODO RENAME ALL METHODS AND FILES IN ADVANCEMENTS
- */
-
 export function getActiveFileContent(params: {
     type: string,
     colorBody: string,
@@ -153,12 +149,12 @@ export function getBodyFileContent(params: {
 }) {
     const variants = params.variantsColor.map(variantColor => {
         return {
-            [`variant_${variantColor}`]: {
+            [`variant_${variantColor.color}`]: {
                 trigger: "minecraft:inventory_changed",
                 conditions: {
                     items: [{
                         items: ["minecraft:tropical_fish_bucket"],
-                        nbt: `{BucketVariantTag: ${variantColor}}`
+                        nbt: `{BucketVariantTag: ${variantColor.color}}`
                     }]
                 }
             }

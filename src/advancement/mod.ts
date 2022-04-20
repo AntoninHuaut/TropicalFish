@@ -29,7 +29,6 @@ export default async function generatesFiles() {
         }[] = []
 
         colors.forEach((bodyColor, bodyColorIndex) => {
-            // TODO body bug
             const path = `${getAdvancementsPathType(type)}/body_${bodyColor}.json`
             const variantsColor = getVariantsWithTypeColor(type, bodyColor).map(colorVariant => {
                 return {

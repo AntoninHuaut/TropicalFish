@@ -7,11 +7,7 @@ import {
 } from "../utils/pack.ts"
 import generateLoadFiles from "./loadFiles.ts"
 import {colors, types} from "../utils/variant.ts";
-
-/* Conf variables */
-const globalRewardCommands = `xp add @s 2700 levels`
-const packFormat = 8
-/* */
+import {config} from "../config.ts";
 
 export default async function generatesFunctionFiles() {
     const promises: Promise<void>[] = []
@@ -24,7 +20,7 @@ export default async function generatesFunctionFiles() {
 
 async function generateGlobalReward() {
     const path = `${getDatapackFunctionPath()}/${getGlobalRewardFileName()}.mcfunction`
-    await writeStringFile(path, globalRewardCommands.trim())
+    await writeStringFile(path, config.globalRewardCommands.join('\n').trim())
 }
 
 async function generatePackMeta() {
@@ -34,7 +30,7 @@ async function generatePackMeta() {
             "author": {
                 "translate": "global.author"
             },
-            "pack_format": packFormat,
+            "pack_format": config.packFormat,
             "description": {
                 "translate": "global.author"
             }
