@@ -1,4 +1,4 @@
-import {MainFile, ParentFile, Variant} from "./IJson.ts"
+import {Variant} from "./IJson.ts"
 import {getAdvancementsPath, getDatapackName, types, writeFile} from "../utils/pack.ts"
 import {calculateModelData} from "../utils/variant.ts"
 import {getMainTemplate_GlobalFile, getParentTemplate_globalFile} from "./advancementFactory.ts";

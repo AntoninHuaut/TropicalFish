@@ -1,13 +1,13 @@
-import {colors, colorsMapping, getAdvancementsPathType, getDatapackName, types, writeFile} from "../utils/pack.ts"
+import {colors, colorsMapping, getAdvancementsPathType, types, writeFile} from "../utils/pack.ts"
 import {calculateModelData, getVariantsWithTypeColor} from "../utils/variant.ts"
 import generateMainFile from "./mainFile.ts"
-import {ParentFile, Variant} from "./IJson.ts"
+import {Variant} from "./IJson.ts"
 import generatePatternFiles from "./patternFile.ts"
 import generateActiveFile from "./activeFile.ts"
 import generateGlobalFile from "./globalFile.ts"
-import {formatString, formatTranslateKey, IFormatParam} from "./utils.ts"
 import {getParentTemplate_mod} from "./advancementFactory.ts";
 
+// TODO
 const LINE: Variant = {
     "trigger": "minecraft:inventory_changed",
     "conditions": {"items": [{"items": ["minecraft:tropical_fish_bucket"], "nbt": "{BucketVariantTag:%VARIANT%}"}]}
@@ -25,18 +25,11 @@ export default async function generatesFiles() {
 
         colors.forEach((bodyColor, bodyColorIndex) => {
             const path = `${getAdvancementsPathType(type)}/${BODY_FILENAME}${bodyColor}.json`
-            const modelData: string = "" + calculateModelData(typeIndex, bodyColorIndex, 0)
-            const content: ParentFile = getParentTemplate_mod()
-
-            const formatParams: IFormatParam = {
-                type: type,
-                colorBody: bodyColor
-            }
-
-            content.display.icon.nbt = content.display.icon.nbt.replace(/%MODELDATA%/g, modelData)
-            content.display.title = formatTranslateKey(content.display.title, formatParams)
-            content.display.description = formatTranslateKey(content.display.description, formatParams)
-            content.parent = formatString(content.parent, formatParams)
+            const content = getParentTemplate_mod({
+                bodyColor: bodyColor,
+                modelData: calculateModelData(typeIndex, bodyColorIndex, 0),
+                type: type
+            })
 
             const colorVariants = getVariantsWithTypeColor(type, bodyColor)
 

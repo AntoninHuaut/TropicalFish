@@ -1,16 +1,18 @@
 import {colors, getDatapackFunctionPath, getDatapackName, writeStringFile} from "../utils/pack.ts"
-import {formatString} from "../advancement/utils.ts"
 
-const TEMPLATE = `advancement grant @s only ${getDatapackName()}:%TYPE%/%BODY_COLOR%/active`
+const getCommands = (config: {
+    type: string,
+    bodyColor: string
+}) => `advancement grant @s only ${getDatapackName()}:${config.type}/${config.bodyColor}/active`
 
 export default async function generateFunctionFile(type: string) {
     const path = `${getDatapackFunctionPath()}/${type}.mcfunction`
     let content = ""
 
-    for (const colorBody of colors) {
-        content += formatString(TEMPLATE, {
+    for (const bodyColor of colors) {
+        content += getCommands({
             type: type,
-            colorBody: colorBody
+            bodyColor: bodyColor
         }) + "\n"
     }
 

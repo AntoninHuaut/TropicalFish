@@ -1,4 +1,3 @@
-import {MainFile, ParentFile, ParentRewardsFile} from "./IJson.ts";
 import {getDatapackName} from "../utils/pack.ts";
 import {NewCriteria, NewDisplay} from "./NewIJson.ts";
 import {getGlobalRewardFileName} from "../function/globalRewardFile.ts";
@@ -37,6 +36,10 @@ export class AdvancementFactory {
         return this.json
     }
 }
+
+/*
+TODO RENAME ALL METHODS
+ */
 
 export function getActiveTemplate(config: {
     type: string,
@@ -80,7 +83,7 @@ export function getParentTemplate_globalFile(config: {
     modelData: number,
     parent: string,
     type: string
-}): ParentFile {
+}) {
     return new AdvancementFactory()
         .criteria({})
         .display({
@@ -110,122 +113,126 @@ export function getParentTemplate_globalFile(config: {
         })
         .parent(config.parent)
         .rewards(getGlobalRewardFileName())
-        .get() as ParentFile
+        .get()
 }
 
-export function getMainTemplate_MainFile(): MainFile {
-    return {
-        "author": {
-            "translate": "global.author"
-        },
-        "display": {
-            "icon": {
-                "item": "minecraft:tropical_fish_bucket",
-                "nbt": "{CustomModelData: %MODELDATA%}"
+export function getMainTemplate_MainFile(config: {
+    modelData: number,
+    type: string
+}) {
+    return new AdvancementFactory()
+        .criteria({})
+        .display({
+            icon: {
+                item: "minecraft:tropical_fish_bucket",
+                nbt: {
+                    CustomModelData: config.modelData
+                }
             },
-            "title": {
-                "translate": "advancement.catch.type.title",
-                "with": [{
-                    "translate": "fish.type.%TYPE%"
+            title: {
+                translate: "advancement.catch.type.title",
+                with: [{
+                    translate: `fish.type.${config.type}`
                 }]
             },
-            "description": {
-                "translate": "advancement.catch.type.description",
-                "with": [{
-                    "translate": "fish.type.%TYPE%"
+            description: {
+                translate: "advancement.catch.type.description",
+                with: [{
+                    translate: `fish.type.${config.type}`
                 }]
             },
-            "background": "minecraft:textures/block/tube_coral_block.png",
-            "frame": "challenge",
-            "show_toast": true,
-            "announce_to_chat": true,
-            "hidden": false
-        },
-        "criteria": {
-            // FILL
-        }
-    }
+            background: "minecraft:textures/block/tube_coral_block.png",
+            frame: "challenge",
+            show_toast: true,
+            announce_to_chat: true,
+            hidden: false
+        })
+        .get()
 }
 
-export function getParentTemplate_mod(): ParentFile {
-    return {
-        "author": {
-            "translate": "global.author"
-        },
-        "display": {
-            "icon": {
-                "item": "minecraft:tropical_fish_bucket",
-                "nbt": "{CustomModelData: %MODELDATA%}"
+export function getParentTemplate_mod(config: {
+    bodyColor: string,
+    modelData: number,
+    type: string
+}) {
+    return new AdvancementFactory()
+        .criteria({})
+        .display({
+            icon: {
+                item: "minecraft:tropical_fish_bucket",
+                nbt: {
+                    CustomModelData: config.modelData
+                }
             },
-            "title": {
-                "translate": "advancement.catch.type_bodyColor.title",
-                "with": [{
-                    "translate": "fish.type.%TYPE%"
+            title: {
+                translate: "advancement.catch.type_bodyColor.title",
+                with: [{
+                    translate: `fish.type.${config.type}`
                 }, {
-                    "translate": "fish.color.%BODY_COLOR%"
+                    translate: `fish.color.${config.bodyColor}`
                 }]
             },
-            "description": {
-                "translate": "advancement.catch.type_bodyColor.description",
-                "with": [{
-                    "translate": "fish.type.%TYPE%"
+            description: {
+                translate: "advancement.catch.type_bodyColor.description",
+                with: [{
+                    translate: `fish.type.${config.type}`
                 }, {
-                    "translate": "fish.color.%BODY_COLOR%"
+                    translate: `fish.color.${config.bodyColor}`
                 }]
             },
-            "frame": "goal",
-            "show_toast": true,
-            "announce_to_chat": false,
-            "hidden": false
-        },
-        "parent": `${getDatapackName()}:%TYPE%/main`,
-        "criteria": {
-            // FILL
-        }
-    }
+            background: "minecraft:textures/block/tube_coral_block.png",
+            frame: "goal",
+            show_toast: true,
+            announce_to_chat: false,
+            hidden: false
+        })
+        .parent(`${config.type}/main`)
+        .get()
 }
 
-export function getParentRewardsTemplate(): ParentRewardsFile {
-    return {
-        "author": {
-            "translate": "global.author"
-        },
-        "display": {
-            "icon": {
-                "item": "minecraft:tropical_fish_bucket",
-                "nbt": "{CustomModelData: %MODELDATA%}"
+export function getParentRewardsTemplate(config: {
+    bodyColor: string,
+    modelData: number,
+    parent: string,
+    patternColor: string,
+    type: string
+}) {
+    return new AdvancementFactory()
+        .criteria({})
+        .display({
+            icon: {
+                item: "minecraft:tropical_fish_bucket",
+                nbt: {
+                    CustomModelData: config.modelData
+                }
             },
-            "title": {
-                "translate": "advancement.catch.type_bodyColor_patternColor.title",
-                "with": [{
-                    "translate": "fish.type.%TYPE%"
+            title: {
+                translate: "advancement.catch.type_bodyColor_patternColor.title",
+                with: [{
+                    translate: `fish.type.${config.type}`
                 }, {
-                    "translate": "fish.color.%BODY_COLOR%"
+                    translate: `fish.color.${config.bodyColor}`
                 }, {
-                    "translate": "fish.color.%PATTERN_COLOR%"
+                    translate: `fish.color.${config.patternColor}`
                 }]
             },
-            "description": {
-                "translate": "advancement.catch.type_bodyColor_patternColor.description",
-                "with": [{
-                    "translate": "fish.type.%TYPE%"
+            description: {
+                translate: "advancement.catch.type_bodyColor_patternColor.description",
+                with: [{
+                    translate: `fish.type.${config.type}`
                 }, {
-                    "translate": "fish.color.%BODY_COLOR%"
+                    translate: `fish.color.${config.bodyColor}`
                 }, {
-                    "translate": "fish.color.%PATTERN_COLOR%"
+                    translate: `fish.color.${config.patternColor}`
                 }]
             },
-            "frame": "task",
-            "show_toast": true,
-            "announce_to_chat": false,
-            "hidden": false
-        },
-        "parent": `${getDatapackName()}:%TYPE%`,
-        "criteria": {
-            // FILL
-        },
-        "rewards": {
-            "function": `${getDatapackName()}:%TYPE%`
-        }
-    }
+            background: "minecraft:textures/block/tube_coral_block.png",
+            frame: "task",
+            show_toast: true,
+            announce_to_chat: false,
+            hidden: false
+        })
+        .parent(`${config.parent}`)
+        .rewards(`${config.type}`) // TODO check rewards may not generated
+        .get()
 }
