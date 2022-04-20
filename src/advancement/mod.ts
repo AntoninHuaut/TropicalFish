@@ -40,9 +40,14 @@ export default async function generatesFiles() {
                 const criteriaKey = variant.key
                 const criteriaValue = content.criteria[criteriaKey]
 
-                promises.push(generatePatternFiles(type, bodyColor, patternColor, {
-                    key: criteriaKey,
-                    value: criteriaValue
+                promises.push(generatePatternFiles({
+                    type: type,
+                    colorBody: bodyColor,
+                    colorPattern: patternColor,
+                    variantObj: {
+                        key: criteriaKey,
+                        value: criteriaValue
+                    }
                 }))
 
                 patternColorIndex++
