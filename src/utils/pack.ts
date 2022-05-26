@@ -1,8 +1,9 @@
-import {ensureDir} from "https://deno.land/std/fs/mod.ts"
-import {colors, types} from "./variant.ts";
-import {config} from "../config.ts";
+import { ensureDir } from "https://deno.land/std/fs/mod.ts"
+import { colors, types } from "./variant.ts";
+import { config } from "../config.ts";
 
-export const PACK_FOLDER_PATH = "pack"
+export const DATAPACK_FOLDER_PATH = "datapack"
+export const RESOURCEPACK_FOLDER_PATH = "resourcepack"
 
 export async function generateFolders() {
     const promises: Promise<void>[] = []
@@ -15,7 +16,7 @@ export async function generateFolders() {
     promises.push(ensureDir(getMinecraftFunctionPath()), ensureDir(getDatapackFunctionPath()))
 
     for (const type of types) {
-        const modelsPathType = `${PACK_FOLDER_PATH}/assets/minecraft/models/item/${type}/`
+        const modelsPathType = `${RESOURCEPACK_FOLDER_PATH}/assets/minecraft/models/item/${type}/`
 
         for (const colorBody of colors) {
             const modelPathTypeColorBody = `${modelsPathType}/${colorBody}/`
@@ -45,15 +46,15 @@ export function getDatapackName(): string {
 }
 
 export function getMinecraftFunctionPath() {
-    return `${PACK_FOLDER_PATH}/data/minecraft/tags/functions`
+    return `${DATAPACK_FOLDER_PATH}/data/minecraft/tags/functions`
 }
 
 export function getDatapackFunctionPath() {
-    return `${PACK_FOLDER_PATH}/data/${getDatapackName()}/functions`
+    return `${DATAPACK_FOLDER_PATH}/data/${getDatapackName()}/functions`
 }
 
 export function getAdvancementsPath() {
-    return `${PACK_FOLDER_PATH}/data/${getDatapackName()}/advancements`
+    return `${DATAPACK_FOLDER_PATH}/data/${getDatapackName()}/advancements`
 }
 
 export function getAdvancementsPathType(type: string) {

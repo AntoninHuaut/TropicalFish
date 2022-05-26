@@ -2,19 +2,20 @@ import {
     getDatapackFunctionPath,
     getDatapackName,
     getGlobalRewardFileName,
-    PACK_FOLDER_PATH,
+    DATAPACK_FOLDER_PATH,
+    RESOURCEPACK_FOLDER_PATH,
     writeStringFile
 } from "../utils/pack.ts"
 import generateLoadFiles from "./loadFiles.ts"
-import {colors, types} from "../utils/variant.ts";
-import {config} from "../config.ts";
+import { colors, types } from "../utils/variant.ts";
+import { config } from "../config.ts";
 
 export default async function generatesFunctionFiles() {
     const promises: Promise<void>[] = []
     types.forEach((type) => promises.push(generateFunctionFile(type)))
     promises.push(generateGlobalReward())
     promises.push(generateLoadFiles())
-    promises.push(generatePackMeta())
+    promises.push(generateDatapackMeta())
     await Promise.all(promises)
 }
 
@@ -23,17 +24,17 @@ async function generateGlobalReward() {
     await writeStringFile(path, config.globalRewardCommands.join('\n').trim())
 }
 
-async function generatePackMeta() {
-    const path = `${PACK_FOLDER_PATH}/pack.mcmeta`
-    await writeStringFile(path, JSON.stringify({
+async function generateDatapackMeta() {
+    await writeStringFile(`${DATAPACK_FOLDER_PATH}/pack.mcmeta`, JSON.stringify({
         "pack": {
-            "author": {
-                "translate": "global.author"
-            },
-            "pack_format": config.packFormat,
-            "description": {
-                "translate": "global.author"
-            }
+            "description": config.i18nName,
+            "pack_format": config.datapackFormat
+        }
+    }, null, 2).trim())
+    await writeStringFile(`${RESOURCEPACK_FOLDER_PATH}/pack.mcmeta`, JSON.stringify({
+        "pack": {
+            "description": config.i18nName,
+            "pack_format": config.resourcepackFormat
         }
     }, null, 2).trim())
 }

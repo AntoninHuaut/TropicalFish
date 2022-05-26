@@ -1,17 +1,24 @@
-import {copy, exists} from "https://deno.land/std/fs/mod.ts"
+import { copy } from "https://deno.land/std/fs/mod.ts"
 import generatesFiles from "./advancement/mod.ts"
-import {generateFolders, PACK_FOLDER_PATH} from "./utils/pack.ts"
+import { generateFolders, DATAPACK_FOLDER_PATH, RESOURCEPACK_FOLDER_PATH } from "./utils/pack.ts"
 import initTextures from "./texture/mod.ts"
 import generatesFunctionFiles from "./function/mod.ts"
 
-
-if (await exists(PACK_FOLDER_PATH)) {
-    await Deno.remove(PACK_FOLDER_PATH, {recursive: true})
+async function removeIfExists(path: string) {
+    try {
+        await Deno.stat(path);
+        await Deno.remove(path, { recursive: true })
+    } catch (_e) {
+        // Ignore
+    }
 }
 
+await removeIfExists(DATAPACK_FOLDER_PATH)
+await removeIfExists(RESOURCEPACK_FOLDER_PATH)
+
 await generateFolders()
-await copy("./static/textures", `${PACK_FOLDER_PATH}/assets/minecraft/textures`)
-await copy("./static/lang", `${PACK_FOLDER_PATH}/assets/minecraft/lang`)
+await copy("./static/textures", `${RESOURCEPACK_FOLDER_PATH}/assets/minecraft/textures`)
+await copy("./static/lang", `${RESOURCEPACK_FOLDER_PATH}/assets/minecraft/lang`)
 await initTextures()
 await generatesFiles()
 await generatesFunctionFiles()

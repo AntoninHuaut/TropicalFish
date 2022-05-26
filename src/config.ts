@@ -1,13 +1,17 @@
 export const config: IConfig = {
     globalRewardCommands: ['xp add @s 2700 levels'],
-    packFormat: 8,
+    datapackFormat: 9,
+    resourcepackFormat: 8,
     datapackTechName: "au_tropique",
+    i18nName: "Tropical Fish",
     jsonMinified: true
 }
 
 export interface IConfig {
     globalRewardCommands: string[]
-    packFormat: number // for ressource pack
+    datapackFormat: number
+    resourcepackFormat: number
     datapackTechName: string
+    i18nName: string
     jsonMinified: boolean
 }

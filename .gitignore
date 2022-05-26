@@ -1,5 +1,6 @@
 .vscode/
 .idea/
-pack/
+datapack/
+resourcepack/
 run.*
 *.zip
