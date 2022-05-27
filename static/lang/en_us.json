@@ -1,8 +1,8 @@
 {
-  "global.author": "EclairDeFeu360 & Maner",
+  "global.author": "Dev: Maner & EclairDeFeu360, Idée: Goldawn, Textures: Mardele, Mayleenor, Moon250 & StMaxoso",
   "global.name": "Tropical Fish",
   "load.hover.preMessage": "The pack has been successfully loaded",
-  "load.hover.postMessage": "By %s\nClick to learn more",
+  "load.hover.postMessage": "%s\nClick to learn more",
   "advancement.catch.fish.title": "Tropical fish",
   "advancement.catch.fish.description": "Collect all kinds of tropical fish",
   "advancement.catch.type.title": "%s",

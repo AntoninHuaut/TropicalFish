@@ -1,7 +1,7 @@
 {
   "global.name": "Poissons tropicaux",
   "load.hover.preMessage": "Le pack a été chargé avec succès",
-  "load.hover.postMessage": "Par %s\nCliquez pour en savoir plus",
+  "load.hover.postMessage": "%s\nCliquez pour en savoir plus",
   "advancement.catch.fish.title": "Poissons tropicaux",
   "advancement.catch.fish.description": "Collecter tous les types de poissons tropicaux",
   "advancement.catch.type.title": "%s",
