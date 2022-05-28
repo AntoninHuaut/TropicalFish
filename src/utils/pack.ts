@@ -42,7 +42,7 @@ export async function writeStringFile(path: string, content: string) {
 }
 
 export function getDatapackName(): string {
-    return config.datapackTechName
+    return config.techName
 }
 
 export function getMinecraftFunctionPath() {
