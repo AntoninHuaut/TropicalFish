@@ -15,7 +15,7 @@ export default async function generatesFunctionFiles() {
     types.forEach((type) => promises.push(generateFunctionFile(type)))
     promises.push(generateGlobalReward())
     promises.push(generateLoadFiles())
-    promises.push(generateDatapackMeta())
+    promises.push(generatePackMeta())
     await Promise.all(promises)
 }
 
@@ -24,7 +24,7 @@ async function generateGlobalReward() {
     await writeStringFile(path, config.globalRewardCommands.join('\n').trim())
 }
 
-async function generateDatapackMeta() {
+async function generatePackMeta() {
     await writeStringFile(`${DATAPACK_FOLDER_PATH}/pack.mcmeta`, JSON.stringify({
         "pack": {
             "description": config.i18nName,
