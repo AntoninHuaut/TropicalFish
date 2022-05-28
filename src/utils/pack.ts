@@ -68,3 +68,7 @@ export function getAdvancementsPathBodyColor(type: string, color: string) {
 export function getGlobalRewardFileName() {
     return "global_reward"
 }
+
+export function getTypeRewardFileName() {
+    return "type_reward"
+}

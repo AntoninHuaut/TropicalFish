@@ -1,5 +1,6 @@
 export const config: IConfig = {
     globalRewardCommands: ['xp add @s 2700 levels'],
+    typeRewardCommands: ['xp add @s 2700 points'],
     datapackFormat: 9,
     resourcepackFormat: 8,
     techName: "tropicalfish",
@@ -9,6 +10,7 @@ export const config: IConfig = {
 
 export interface IConfig {
     globalRewardCommands: string[]
+    typeRewardCommands: string[]
     datapackFormat: number
     resourcepackFormat: number
     techName: string

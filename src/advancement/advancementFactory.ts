@@ -1,5 +1,5 @@
-import {getDatapackName, getGlobalRewardFileName} from "../utils/pack.ts";
-import {Criteria, Display} from "./IJson.ts";
+import { getDatapackName, getGlobalRewardFileName, getTypeRewardFileName } from "../utils/pack.ts";
+import { Criteria, Display } from "./IJson.ts";
 
 class AdvancementFactory {
 
@@ -105,7 +105,7 @@ export function getGlobalTypeFileContent(params: {
             hidden: false
         })
         .parent(params.parent)
-        .rewards(getGlobalRewardFileName())
+        .rewards(getTypeRewardFileName())
         .get()
 }
 

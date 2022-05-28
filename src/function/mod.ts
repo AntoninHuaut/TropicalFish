@@ -2,6 +2,7 @@ import {
     getDatapackFunctionPath,
     getDatapackName,
     getGlobalRewardFileName,
+    getTypeRewardFileName,
     DATAPACK_FOLDER_PATH,
     RESOURCEPACK_FOLDER_PATH,
     writeStringFile
@@ -13,15 +14,15 @@ import { config } from "../config.ts";
 export default async function generatesFunctionFiles() {
     const promises: Promise<void>[] = []
     types.forEach((type) => promises.push(generateFunctionFile(type)))
-    promises.push(generateGlobalReward())
+    promises.push(generateRewards())
     promises.push(generateLoadFiles())
     promises.push(generatePackMeta())
     await Promise.all(promises)
 }
 
-async function generateGlobalReward() {
-    const path = `${getDatapackFunctionPath()}/${getGlobalRewardFileName()}.mcfunction`
-    await writeStringFile(path, config.globalRewardCommands.join('\n').trim())
+async function generateRewards() {
+    await writeStringFile(`${getDatapackFunctionPath()}/${getGlobalRewardFileName()}.mcfunction`, config.globalRewardCommands.join('\n').trim())
+    await writeStringFile(`${getDatapackFunctionPath()}/${getTypeRewardFileName()}.mcfunction`, config.typeRewardCommands.join('\n').trim())
 }
 
 async function generatePackMeta() {
