@@ -1,7 +1,14 @@
 # TropicalFish
 
-Proof of concept
+Install [Deno](https://deno.land/#installation) if you don't have it yet\
+Otherwise check that you are up to date with
 
-Nécessite [Deno](https://deno.land/)
+```console
+deno upgrade
+```
 
-> deno run --allow-write=. --allow-read=. --allow-env ./src/mod.ts
+Then run the app to generate the datapack and resourcepack
+
+```console
+deno task start
+```

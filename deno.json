@@ -1,0 +1,5 @@
+{
+    "tasks": {
+        "start": "deno run --allow-write=. --allow-read=. --allow-env ./src/mod.ts"
+    }
+}
