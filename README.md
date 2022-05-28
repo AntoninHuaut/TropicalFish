@@ -7,7 +7,7 @@ Otherwise check that you are up to date with
 deno upgrade
 ```
 
-Then run the app to generate the datapack and resourcepack
+Then run the application to generate the datapack and resourcepack
 
 ```console
 deno task start
