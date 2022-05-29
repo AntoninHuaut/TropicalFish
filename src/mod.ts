@@ -19,7 +19,7 @@ async function generateZIP(path: string, output: string) {
     for await (const dirEntry of Deno.readDir(path)) {
         fileNames.push(path + "/" + dirEntry.name)
     }
-    await compress(fileNames, `${config.techName}_${output}.zip`, { overwrite: true })
+    await compress(fileNames, `${config.i18nName.replace(/ /g, '')}-${output}.zip`, { overwrite: true })
 }
 
 await removeIfExists(DATAPACK_FOLDER_PATH)
@@ -30,6 +30,8 @@ console.log("Generating datapack folder and resourcepack folder...")
 await generateFolders()
 await copy("./static/textures", `${RESOURCEPACK_FOLDER_PATH}/assets/minecraft/textures`)
 await copy("./static/lang", `${RESOURCEPACK_FOLDER_PATH}/assets/minecraft/lang`)
+await copy("./static/pack.png", `${DATAPACK_FOLDER_PATH}/pack.png`)
+await copy("./static/pack.png", `${RESOURCEPACK_FOLDER_PATH}/pack.png`)
 await initTextures()
 await generatesFiles()
 await generatesFunctionFiles()
@@ -38,8 +40,8 @@ console.log("Datapack/resourcepack folders have been generated")
 console.log("Generating datapack archive and resourcepack archive...")
 
 await Promise.all([
-    generateZIP(DATAPACK_FOLDER_PATH, "datapack"),
-    generateZIP(RESOURCEPACK_FOLDER_PATH, "resourcepack")
+    generateZIP(DATAPACK_FOLDER_PATH, "data"),
+    generateZIP(RESOURCEPACK_FOLDER_PATH, "resource")
 ])
 
 console.log("Datapack/resourcepack archives have been generated")

@@ -28,13 +28,13 @@ async function generateRewards() {
 async function generatePackMeta() {
     await writeStringFile(`${DATAPACK_FOLDER_PATH}/pack.mcmeta`, JSON.stringify({
         "pack": {
-            "description": config.i18nName,
+            "description": config.i18nName + " Datapack",
             "pack_format": config.datapackFormat
         }
     }, null, 2).trim())
     await writeStringFile(`${RESOURCEPACK_FOLDER_PATH}/pack.mcmeta`, JSON.stringify({
         "pack": {
-            "description": config.i18nName,
+            "description": config.i18nName + " Resourcepack",
             "pack_format": config.resourcepackFormat
         }
     }, null, 2).trim())
