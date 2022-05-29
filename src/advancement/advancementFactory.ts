@@ -1,5 +1,5 @@
-import { getDatapackName, getGlobalRewardFileName, getTypeRewardFileName } from "../utils/pack.ts";
-import { Criteria, Display } from "./IJson.ts";
+import { getDatapackName, getGlobalRewardFileName, getTypeRewardFileName } from "../utils/pack.ts"
+import { Criteria, Display } from "./IJson.ts"
 
 class AdvancementFactory {
 

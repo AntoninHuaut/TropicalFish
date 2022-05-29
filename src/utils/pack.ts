@@ -1,6 +1,6 @@
 import { ensureDir } from "https://deno.land/std/fs/mod.ts"
-import { colors, types } from "./variant.ts";
-import { config } from "../config.ts";
+import { colors, types } from "./variant.ts"
+import { config } from "../config.ts"
 
 export const DATAPACK_FOLDER_PATH = "datapack"
 export const RESOURCEPACK_FOLDER_PATH = "resourcepack"
@@ -28,7 +28,7 @@ export async function generateFolders() {
 }
 
 export async function writeFile(path: string, content: object) {
-    let stringify: string;
+    let stringify: string
     if (config.jsonMinified) {
         stringify = JSON.stringify(content)
     } else {

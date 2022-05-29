@@ -7,7 +7,7 @@ import generatesFunctionFiles from "./function/mod.ts"
 
 async function removeIfExists(path: string) {
     try {
-        await Deno.stat(path);
+        await Deno.stat(path)
         await Deno.remove(path, { recursive: true })
     } catch (_e) {
         // Ignore
@@ -15,9 +15,9 @@ async function removeIfExists(path: string) {
 }
 
 async function generateZIP(path: string, output: string) {
-    const fileNames: string[] = [];
+    const fileNames: string[] = []
     for await (const dirEntry of Deno.readDir(path)) {
-        fileNames.push(path + "/" + dirEntry.name);
+        fileNames.push(path + "/" + dirEntry.name)
     }
     await compress(fileNames, `${config.techName}_${output}.zip`, { overwrite: true })
 }

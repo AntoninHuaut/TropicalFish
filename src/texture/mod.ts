@@ -1,23 +1,23 @@
 import { RESOURCEPACK_FOLDER_PATH, writeFile } from "../utils/pack.ts"
-import { calculateModelData, colors, types } from "../utils/variant.ts";
+import { calculateModelData, colors, types } from "../utils/variant.ts"
 
 export interface LinkItemsFile {
-    parent: string;
-    textures: Textures;
-    overrides: (OverridesEntity)[];
+    parent: string
+    textures: Textures
+    overrides: (OverridesEntity)[]
 }
 
 export interface Textures {
-    layer0: string;
+    layer0: string
 }
 
 export interface OverridesEntity {
-    predicate: Predicate;
-    model: string;
+    predicate: Predicate
+    model: string
 }
 
 export interface Predicate {
-    custom_model_data: number;
+    custom_model_data: number
 }
 
 async function createModelsFiles() {

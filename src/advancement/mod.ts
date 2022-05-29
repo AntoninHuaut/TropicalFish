@@ -5,7 +5,7 @@ import {
     getDatapackName,
     writeFile
 } from "../utils/pack.ts"
-import {calculateModelData, colors, colorsMapping, getVariantsWithTypeColor, types} from "../utils/variant.ts"
+import { calculateModelData, colors, colorsMapping, getVariantsWithTypeColor, types } from "../utils/variant.ts"
 import {
     getActiveFileContent,
     getBodyFileContent,
@@ -13,8 +13,11 @@ import {
     getGlobalTypeFileContent,
     getMainFileContent,
     getPatternFileContent
-} from "./advancementFactory.ts";
-import {Criteria, Variant} from "./IJson.ts";
+} from "./advancementFactory.ts"
+import { Criteria, Variant } from "./IJson.ts"
+
+const DEFAULT_PRIMARY_COLOR = 13
+const DEFAULT_SECONDARY_COLOR = 3
 
 export default async function generatesFiles() {
     const promises: Promise<void>[] = []
@@ -60,7 +63,7 @@ export default async function generatesFiles() {
                 }))
 
                 patternColorIndex++
-                typeVariants.push({key: criteriaKey, value: criteriaValue})
+                typeVariants.push({ key: criteriaKey, value: criteriaValue })
             }
 
             promises.push(createActiveFile(type, bodyColor))
@@ -80,7 +83,7 @@ async function createMainFile(type: string, typesVariants: {
 }[]) {
     const path = `${getAdvancementsPathType(type)}/main.json`
     const content = getMainFileContent({
-        modelData: calculateModelData(types.indexOf(type), 0, 7),
+        modelData: calculateModelData(types.indexOf(type), DEFAULT_PRIMARY_COLOR, DEFAULT_SECONDARY_COLOR),
         type: type
     })
 
@@ -148,7 +151,7 @@ async function createGlobalFiles(allTypesVariants: {
     for (const type of Object.keys(allTypesVariants)) {
         const typePath = `${getAdvancementsPath()}/global_${type}.json`
         const typeContent = getGlobalTypeFileContent({
-            modelData: calculateModelData(types.indexOf(type), 0, 7),
+            modelData: calculateModelData(types.indexOf(type), DEFAULT_PRIMARY_COLOR, DEFAULT_SECONDARY_COLOR),
             parent: lastParent,
             type: type
         })
@@ -164,7 +167,7 @@ async function createGlobalFiles(allTypesVariants: {
     }
 
     promises.push(writeFile(`${getAdvancementsPath()}/global_tick.json`, {
-        "criteria": {"active": {"trigger": "minecraft:tick"}},
+        "criteria": { "active": { "trigger": "minecraft:tick" } },
         "parent": `${getDatapackName()}:${lastParent}`
     }))
     promises.push(writeFile(path, content))

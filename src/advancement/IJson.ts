@@ -1,40 +1,40 @@
 export interface TranslateKey {
-    translate: string;
-    with?: TranslateKey[];
+    translate: string
+    with?: TranslateKey[]
 }
 
 interface StringCriteria {
-    [variant: string]: Variant;
+    [variant: string]: Variant
 }
 
 interface ActiveCriteria {
-    active?: { trigger: string; };
+    active?: { trigger: string }
 }
 
 export type Criteria = StringCriteria | ActiveCriteria
 
 export interface Display {
-    icon: Icon;
-    title: TranslateKey;
-    description: TranslateKey;
-    background?: string;
-    frame: string;
-    show_toast: boolean;
-    announce_to_chat: boolean;
-    hidden: boolean;
+    icon: Icon
+    title: TranslateKey
+    description: TranslateKey
+    background?: string
+    frame: string
+    show_toast: boolean
+    announce_to_chat: boolean
+    hidden: boolean
 }
 
 export interface Icon {
-    item: string;
-    nbt?: string;
+    item: string
+    nbt?: string
 }
 
 export interface Variant {
-    trigger: string;
-    conditions: { items: (ItemsEntity)[] };
+    trigger: string
+    conditions: { items: (ItemsEntity)[] }
 }
 
 export interface ItemsEntity {
-    items: (string)[];
-    nbt: string;
+    items: (string)[]
+    nbt: string
 }

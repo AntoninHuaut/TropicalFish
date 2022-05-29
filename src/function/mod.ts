@@ -8,8 +8,8 @@ import {
     writeStringFile
 } from "../utils/pack.ts"
 import generateLoadFiles from "./loadFiles.ts"
-import { colors, types } from "../utils/variant.ts";
-import { config } from "../config.ts";
+import { colors, types } from "../utils/variant.ts"
+import { config } from "../config.ts"
 
 export default async function generatesFunctionFiles() {
     const promises: Promise<void>[] = []
