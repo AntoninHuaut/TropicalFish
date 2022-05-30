@@ -1,5 +1,6 @@
 {
     "tasks": {
-        "start": "deno run --allow-write=. --allow-read=. --allow-run ./src/mod.ts"
+        "start": "deno run --allow-write=. --allow-read=. --allow-run ./src/mod.ts",
+        "bucket-start": "cd bucket-project && deno task start"
     }
 }

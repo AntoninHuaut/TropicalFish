@@ -2,4 +2,5 @@
 .idea/
 datapack/
 resourcepack/
+bucket-project/dist/
 *.zip
