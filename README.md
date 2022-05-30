@@ -1,5 +1,21 @@
 # TropicalFish
 
+<p align="center">
+  <img src="https://i.imgur.com/JDq39DL.png">
+  <br/><b>Global Advancement tab</b>
+</p>
+<p align="center">
+  <img src="https://i.imgur.com/chnRo4a.png">
+  <br/><b>Flopper Advancement tab</b>
+</p>
+
+## Download
+Datapack and resourcepack can be download on curseforge:
+* [All Tropical Fish Datapack](https://www.curseforge.com/minecraft/customization/all-tropical-fish-datapack)
+* [All Tropical Fish Collection](https://www.curseforge.com/minecraft/texture-packs/all-tropical-fish-ressourcepack)
+
+## Generation
+
 Install [Deno](https://deno.land/#installation) if you don't have it yet\
 Otherwise check that you are up to date with
 
