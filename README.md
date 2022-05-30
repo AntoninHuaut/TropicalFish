@@ -10,7 +10,7 @@
 </p>
 
 ## Download
-Datapack and resourcepack can be download on curseforge:
+Datapack and resourcepack can be downloaded on curseforge
 * [All Tropical Fish Datapack](https://www.curseforge.com/minecraft/customization/all-tropical-fish-datapack)
 * [All Tropical Fish Collection](https://www.curseforge.com/minecraft/texture-packs/all-tropical-fish-ressourcepack)
 
@@ -23,7 +23,7 @@ Otherwise check that you are up to date with
 deno upgrade
 ```
 
-Then run the application to generate the datapack and resourcepack
+Then run the application to generate the datapack and the resourcepack
 
 ```console
 deno task start
