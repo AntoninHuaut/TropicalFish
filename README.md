@@ -16,7 +16,7 @@ Datapack and resourcepack can be downloaded on curseforge
 
 ## Generation
 
-Install [Deno](https://deno.land/#installation) if you don't have it yet\
+Install [Deno](https://deno.land/manual/getting_started/installation) if you don't have it yet\
 Otherwise check that you are up to date with
 
 ```console
