@@ -1,4 +1,4 @@
-import { ensureDir } from 'https://deno.land/std/fs/mod.ts';
+import { ensureDir } from 'https://deno.land/std@0.208.0/fs/mod.ts';
 
 import { config } from '../config.ts';
 import { colors, types } from './variant.ts';
@@ -14,11 +14,7 @@ export async function generateFolders() {
             promises.push(ensureDir(path));
         }
     }
-    promises.push(
-        ensureDir(getMinecraftFunctionPath()),
-        ensureDir(getDatapackFunctionPath()),
-        ensureDir(`${RESOURCEPACK_FOLDER_PATH}/assets/minecraft/models/item/`)
-    );
+    promises.push(ensureDir(getMinecraftFunctionPath()), ensureDir(getDatapackFunctionPath()), ensureDir(`${RESOURCEPACK_FOLDER_PATH}/assets/minecraft/models/item/`));
 
     for (const type of types) {
         const modelsPathType = `${RESOURCEPACK_FOLDER_PATH}/assets/minecraft/models/${config.techName}/${type}/`;

@@ -1,4 +1,4 @@
-import { ensureDir } from 'https://deno.land/std/fs/mod.ts';
+import { ensureDir } from 'https://deno.land/std@0.208.0/fs/mod.ts';
 
 import { config } from '../config.ts';
 import { RESOURCEPACK_FOLDER_PATH, writeFile } from '../utils/pack.ts';

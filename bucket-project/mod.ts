@@ -1,6 +1,6 @@
-import { ensureDir } from 'https://deno.land/std@0.141.0/fs/mod.ts';
-import { resolve } from 'https://deno.land/std@0.141.0/path/mod.ts';
-import { Image } from 'https://deno.land/x/imagescript@v1.2.13/mod.ts';
+import { ensureDir } from 'https://deno.land/std@0.208.0/fs/mod.ts';
+import { resolve } from 'https://deno.land/std@0.208.0/path/mod.ts';
+import { Image } from 'https://deno.land/x/imagescript@1.2.17/mod.ts';
 
 import { config } from '../src/config.ts';
 
@@ -39,4 +39,4 @@ await checkImage(imageConfig.assetsDir);
 await Promise.all(imgPending);
 console.timeEnd('Generate images');
 
-console.log(`Dist path: ${resolve(config.distDir)}`);
+console.log(`Dist path: ${resolve(imageConfig.distDir)}`);
