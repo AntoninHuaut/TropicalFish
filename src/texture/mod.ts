@@ -1,7 +1,7 @@
 import { ensureDir } from 'https://deno.land/std@0.208.0/fs/ensure_dir.ts';
 
 import { config } from '../config.ts';
-import { RESOURCEPACK_FOLDER_PATH, writeFile, writeStringFile } from '../utils/pack.ts';
+import { RESOURCEPACK_FOLDER_PATH, writeFile } from '../utils/pack.ts';
 import { calculateModelData, colors, types } from '../utils/variant.ts';
 
 export interface LinkItemsFile {
@@ -91,18 +91,8 @@ export async function createAtlases() {
     });
 }
 
-export async function createCredit() {
-    await writeStringFile(
-        `${RESOURCEPACK_FOLDER_PATH}/credit.txt`,
-        `Textures: Mayleenor, StMaxoso, Moon250, Mardele
-Developpment: Maner_, EclairDeFeu360
-Idea: Goldawn`
-    );
-}
-
 export default async function initTextures() {
     await createModelsFiles();
     await createLinkTexturesModelsFile();
     await createAtlases();
-    await createCredit();
 }
