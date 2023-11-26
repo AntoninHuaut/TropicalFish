@@ -1,7 +1,8 @@
+import { ensureDir } from 'https://deno.land/std@0.208.0/fs/ensure_dir.ts';
+
 import { config } from '../config.ts';
-import { RESOURCEPACK_FOLDER_PATH, writeFile } from '../utils/pack.ts';
+import { RESOURCEPACK_FOLDER_PATH, writeFile, writeStringFile } from '../utils/pack.ts';
 import { calculateModelData, colors, types } from '../utils/variant.ts';
-import { createAtlases } from './atlases.ts';
 
 export interface LinkItemsFile {
     parent: string;
@@ -77,8 +78,31 @@ async function createLinkTexturesModelsFile() {
     await writeFile(`${RESOURCEPACK_FOLDER_PATH}/assets/minecraft/models/item/tropical_fish.json`, content);
 }
 
+export async function createAtlases() {
+    await ensureDir(`${RESOURCEPACK_FOLDER_PATH}/assets/minecraft/atlases`);
+    await writeFile(`${RESOURCEPACK_FOLDER_PATH}/assets/minecraft/atlases/blocks.json`, {
+        sources: [
+            {
+                type: 'directory',
+                source: config.techName,
+                prefix: config.techName + '/',
+            },
+        ],
+    });
+}
+
+export async function createCredit() {
+    await writeStringFile(
+        `${RESOURCEPACK_FOLDER_PATH}/credit.txt`,
+        `Textures: Mayleenor, StMaxoso, Moon250, Mardele
+Developpment: Maner_, EclairDeFeu360
+Idea: Goldawn`
+    );
+}
+
 export default async function initTextures() {
     await createModelsFiles();
     await createLinkTexturesModelsFile();
     await createAtlases();
+    await createCredit();
 }
